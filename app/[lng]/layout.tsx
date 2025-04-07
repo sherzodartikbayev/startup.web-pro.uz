@@ -3,6 +3,8 @@ import './globals.css'
 import { ChildProps } from '@/types'
 import { Roboto, Space_Grotesk as SpaceGrotesk } from 'next/font/google'
 import { ThemeProvider } from '@/components/providers/theme-provider'
+import { languages } from '@/i18n/settings'
+import { dir } from 'i18next'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -16,15 +18,23 @@ const spaceGrotesk = SpaceGrotesk({
 	variable: '--font-space-grotesk',
 })
 
+export async function generateStaticParams() {
+	return languages.map(lng => ({ lng }))
+}
+
 export const metadata: Metadata = {
 	title: 'Start Up Praktikum - Next.js',
 	description: "Sammi Praktikum's Next.js project",
 	icons: { icon: '/logo.svg' },
 }
 
-function RootLayout({ children }: ChildProps) {
+interface Props extends ChildProps {
+	params: {lng: string}
+}
+
+function RootLayout({ children, params: { lng } }: Props) {
 	return (
-		<html lang='en' suppressHydrationWarning>
+		<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
 			<body
 				className={`${roboto.variable} ${spaceGrotesk.variable} overflow-x-hidden`}
 				suppressHydrationWarning
