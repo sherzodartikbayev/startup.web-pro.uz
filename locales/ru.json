@@ -1,3 +1,8 @@
 {
-	"home": "Home RU"
+	"navLink1": "Главная",
+	"navLink2": "Курсы",
+	"navLink3": "Блоги",
+	"navLink4": "Контакты",
+	"manageAccount": "Управление профилем",
+	"logout": "Выйти"
 }

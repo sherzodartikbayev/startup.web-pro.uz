@@ -1,3 +1,8 @@
 {
-	"home": "Home TR"
+	"navLink1": "Anasayfa",
+	"navLink2": "Kurslar",
+	"navLink3": "Bloglar",
+	"navLink4": "İletişim",
+	"manageAccount": "Hesabı yönet",
+	"logout": "Çıkış Yap"
 }

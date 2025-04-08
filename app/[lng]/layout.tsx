@@ -5,6 +5,8 @@ import { Roboto, Space_Grotesk as SpaceGrotesk } from 'next/font/google'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { languages } from '@/i18n/settings'
 import { dir } from 'i18next'
+import { ClerkProvider } from '@clerk/nextjs'
+import { localization } from '@/lib/utils'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -29,26 +31,30 @@ export const metadata: Metadata = {
 }
 
 interface Props extends ChildProps {
-	params: {lng: string}
+	params: { lng: string }
 }
 
 function RootLayout({ children, params: { lng } }: Props) {
+	const local = localization(lng)
+
 	return (
-		<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
-			<body
-				className={`${roboto.variable} ${spaceGrotesk.variable} overflow-x-hidden`}
-				suppressHydrationWarning
-			>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='system'
-					enableSystem
-					disableTransitionOnChange
+		<ClerkProvider localization={local}>
+			<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
+				<body
+					className={`${roboto.variable} ${spaceGrotesk.variable} overflow-x-hidden`}
+					suppressHydrationWarning
 				>
-					{children}
-				</ThemeProvider>
-			</body>
-		</html>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='system'
+						enableSystem
+						disableTransitionOnChange
+					>
+						{children}
+					</ThemeProvider>
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }
 
