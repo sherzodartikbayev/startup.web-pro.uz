@@ -10,24 +10,39 @@ import {
 import { Button } from '../ui/button'
 import { Languages } from 'lucide-react'
 import Image from 'next/image'
-import { langs } from '@/constants'
+import { lngs } from '@/constants'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import { cn, getCurrentLng } from '@/lib/utils'
 import { useParams } from 'next/navigation'
 
-function LanguageDropdown() {
+interface Props {
+	isMobile?: boolean
+}
+
+function LanguageDropdown({ isMobile = false }: Props) {
 	const { lng } = useParams()
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant={'ghost'} size={'icon'}>
+				<Button
+					variant={'ghost'}
+					size={'icon'}
+					className={cn(
+						isMobile && 'w-full bg-primary hover:bg-primary/80 h-12 '
+					)}
+				>
 					<Languages />
+					{isMobile && (
+						<span className='ml-2 font-space-grotesk font-medium'>
+							{getCurrentLng(lng as string)}
+						</span>
+					)}
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56'>
 				<DropdownMenuGroup>
-					{langs.map(item => (
+					{lngs.map(item => (
 						<Link href={`${item.route}`} key={item.route}>
 							<DropdownMenuItem
 								className={cn(

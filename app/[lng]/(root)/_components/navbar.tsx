@@ -4,32 +4,28 @@ import Logo from '@/components/shared/logo'
 import ModeToggle from '@/components/shared/mode-toggle'
 import { Button } from '@/components/ui/button'
 import { navLinks } from '@/constants'
-import { ShoppingCart } from 'lucide-react'
+import { LogIn, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import GlobalSearch from './global-search'
 import LanguageDropdown from '@/components/shared/language-dropdown'
-import {
-	SignedIn,
-	SignedOut,
-	SignInButton,
-	SignUpButton,
-} from '@clerk/nextjs'
+import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
 import UserBox from '@/components/shared/user-box'
 import useTranslate from '@/hooks/use-translate'
- 
-const Navbar = () => {
+import Mobile from './mobile'
+
+function Navbar() {
 	const t = useTranslate()
 
 	return (
-		<header className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
-			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b'>
+		<div className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
+			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b max-md:px-5'>
 				<div className='flex items-center gap-4'>
 					<Logo />
-					<div className='flex items-center gap-3 border-l pl-2'>
+					<div className='hidden items-center gap-3 border-l pl-2 md:flex'>
 						{navLinks.map(nav => (
 							<Link
-								key={nav.route}
 								href={`/${nav.route}`}
+								key={nav.route}
 								className='font-medium transition-all hover:text-blue-500 hover:underline'
 							>
 								{t(nav.name)}
@@ -39,40 +35,45 @@ const Navbar = () => {
 				</div>
 
 				<div className='flex items-center gap-2'>
-					<div className='flex items-center gap-2 border-r pr-3'>
-						<GlobalSearch />
-						<LanguageDropdown />
-						<Button size={'icon'} variant={'ghost'}>
-							<ShoppingCart />
-						</Button>
+					<div className='flex items-center gap-2 md:border-r md:pr-3'>
+						<div className='hidden md:flex'>
+							<GlobalSearch />
+							<LanguageDropdown />
+							<Button size={'icon'} variant={'ghost'}>
+								<ShoppingCart />
+							</Button>
+						</div>
+						<Mobile />
 						<ModeToggle />
 					</div>
-
 					<SignedIn>
 						<UserBox />
 					</SignedIn>
-
 					<SignedOut>
 						<SignInButton mode='modal'>
 							<Button
 								variant={'ghost'}
 								size={'lg'}
 								rounded={'full'}
-								className=''
+								className='hidden md:flex'
 							>
-								Log in
+								{t('logIn')}
 							</Button>
 						</SignInButton>
-
 						<SignUpButton mode='modal'>
-							<Button size={'lg'} rounded={'full'} className=''>
-								Sign Up
+							<Button size={'lg'} rounded={'full'} className='hidden md:flex'>
+								{t('signUp')}
 							</Button>
 						</SignUpButton>
+						<SignInButton mode='modal'>
+							<Button size={'icon'} variant={'ghost'} className='md:hidden'>
+								<LogIn />
+							</Button>
+						</SignInButton>
 					</SignedOut>
 				</div>
 			</div>
-		</header>
+		</div>
 	)
 }
 
