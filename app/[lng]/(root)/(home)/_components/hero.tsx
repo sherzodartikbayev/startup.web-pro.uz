@@ -17,7 +17,7 @@ const Hero = () => {
 
 	return (
 		<>
-			<div className='container mx-auto grid min-h-[90vh] max-w-6xl  grid-cols-2 gap-8 max-md:grid-cols-1 max-md:pt-32'>
+			<div className='container mx-auto grid min-h-[90vh] max-w-6xl  grid-cols-2 gap-8 max-md:grid-cols-1 max-md:px-5 max-md:pt-32'>
 				<div className='flex flex-col space-y-4 self-center'>
 					<h1 className='font-space-grotesk text-5xl font-bold'>
 						{t('heroTitle')}{' '}

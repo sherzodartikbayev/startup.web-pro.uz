@@ -52,8 +52,8 @@ const config: Config = {
 				},
 			},
 			fontFamily: {
-				roboto: ['var(--font-roboto)'],
-				'space-grotesk': ['var(--font-space-grotesk)'],
+				roboto: ['var(--font-roboto)', 'sans-serif'],
+				'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

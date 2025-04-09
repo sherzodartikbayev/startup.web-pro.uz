@@ -7,3 +7,32 @@ export interface ChildProps {
 export interface LngParams { 
 	 params: { lng: string } 
 }
+
+export interface ICourse {
+	title: string
+	previewImage: string
+	level: string
+	author: {
+		image: string
+		name: string
+	}
+	oldPrice: number
+	currentPrice: number
+}
+
+export interface ICategory {
+	label: string
+	icon: string
+}
+
+export interface IInstructor {
+	name: string
+	image: string
+	job: string
+}
+
+export interface ILearningCard {
+	title: string
+	excerpt: string
+	image: string
+}
