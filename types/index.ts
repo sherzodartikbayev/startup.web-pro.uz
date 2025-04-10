@@ -30,9 +30,3 @@ export interface IInstructor {
 	image: string
 	job: string
 }
-
-export interface ILearningCard {
-	title: string
-	excerpt: string
-	image: string
-}

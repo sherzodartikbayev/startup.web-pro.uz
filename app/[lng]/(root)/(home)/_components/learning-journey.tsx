@@ -2,6 +2,7 @@
 
 import { learningJourney } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
+import Image from 'next/image'
 
 const LearningJourney = () => {
 	const t = useTranslate()
@@ -17,7 +18,16 @@ const LearningJourney = () => {
 
 			<div className='mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
 				{learningJourney.map(item => (
-					<LearningJourney key={item.title} {...item} />
+					<div
+						className='flex flex-col items-center justify-center rounded-md bg-primary p-6 text-center'
+						key={item.title}
+					>
+						<Image src={item.image} alt={item.title} width={70} height={70} />
+						<h2 className='mt-2 line-clamp-1 font-space-grotesk text-lg font-bold text-secondary'>
+							{t(item.title)}
+						</h2>
+						<p className='line-clamp-2 text-secondary'>{t(item.excerpt)}</p>
+					</div>
 				))}
 			</div>
 		</div>
