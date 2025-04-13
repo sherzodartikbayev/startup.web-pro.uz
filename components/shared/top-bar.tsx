@@ -15,7 +15,7 @@ const TopBar = ({ label, description, extra }: Props) => {
 
 	return (
 		<>
-			<div className='mt-20 h-12 bg-gradient-to-r from-secondary to-primary'>
+			<div className='mt-20 h-12 bg-gradient-to-r from-secondary to-primary max-md:px-5'>
 				<div className='container mx-auto flex w-full max-w-6xl items-center'>
 					<div className='flex items-center'>
 						<Link
@@ -37,7 +37,7 @@ const TopBar = ({ label, description, extra }: Props) => {
 			</div>
 
 			{description && (
-				<div className='container mx-auto my-12 max-w-6xl'>
+				<div className='container mx-auto my-12 max-w-6xl max-md:px-5'>
 					<h1 className='font-space-grotesk text-4xl font-bold'>{t(label)}</h1>
 					<p className='mt-2 max-w-md text-muted-foreground'>
 						{t(description!)}
