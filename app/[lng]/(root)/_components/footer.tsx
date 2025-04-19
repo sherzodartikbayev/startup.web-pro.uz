@@ -63,7 +63,7 @@ const Footer = () => {
 									className='text-sm hover:text-blue-500 hover:underline dark:hover:text-blue-300'
 									href='mailto:info@web-pro.com'
 								>
-									info@web-pro.com
+									info@web-pro.uz
 								</a>
 							</div>
 
