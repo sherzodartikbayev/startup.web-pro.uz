@@ -3,7 +3,7 @@
 import useTranslate from '@/hooks/use-translate'
 import { Button } from '@/components/ui/button'
 import { BarChart2, Clock3, Infinity, Languages, MonitorPlay } from 'lucide-react'
-import {GrCertificate} from 'react-icons/gr'
+import { GrCertificate } from 'react-icons/gr'
 
 const Description = () => {
 	const t = useTranslate()
