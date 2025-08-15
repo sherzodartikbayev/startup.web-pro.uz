@@ -10,7 +10,7 @@ import {
 } from '../ui/dropdown-menu'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import Link from 'next/link'
-import useTranslate from '@/hook/use-translate'
+import useTranslate from '@/hooks/use-translate'
 
 function UserBox() {
 	const t = useTranslate()

@@ -10,7 +10,7 @@ import GlobalSearch from './global-search'
 import LanguageDropdown from '@/components/shared/language-dropdown'
 import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
 import UserBox from '@/components/shared/user-box'
-import useTranslate from '@/hook/use-translate'
+import useTranslate from '@/hooks/use-translate'
 import Mobile from './mobile'
 
 function Navbar() {
@@ -18,7 +18,7 @@ function Navbar() {
 
 	return (
 		<header className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
-			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b max-md:px-5'>
+			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b max-xl:px-5'>
 				<div className='flex items-center gap-4'>
 					<Logo />
 

@@ -11,7 +11,7 @@ import {
 	SheetTrigger,
 } from '@/components/ui/sheet'
 import { navLinks } from '@/constants'
-import useTranslate from '@/hook/use-translate'
+import useTranslate from '@/hooks/use-translate'
 import { AlignCenter, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import GlobalSearch from './global-search'
