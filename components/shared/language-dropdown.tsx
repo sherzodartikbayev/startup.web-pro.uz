@@ -11,17 +11,27 @@ import { DropdownMenuContent, DropdownMenuGroup } from '../ui/dropdown-menu'
 import Image from 'next/image'
 import { lngs } from '@/constants'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import { cn, getCurrentLanguage } from '@/lib/utils'
 import { useParams } from 'next/navigation'
+import { LanguageDropdownProps } from '@/types'
 
-function LanguageDropdown() {
+function LanguageDropdown({ isMobbile = false }: LanguageDropdownProps) {
 	const { lng } = useParams()
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant='ghost' size='icon'>
+				<Button
+					variant='ghost'
+					size='icon'
+					className={cn(isMobbile && 'w-full bg-primary')}
+				>
 					<Languages />
+					{isMobbile && (
+						<span className='ml-2 font-space-grotesk font-medium'>
+							{getCurrentLanguage(lng as string)}
+						</span>
+					)}
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56'>

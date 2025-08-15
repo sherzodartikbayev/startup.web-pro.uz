@@ -1,11 +1,11 @@
-'use client'
-
-import useTranslate from '@/hook/use-translate'
+import Hero from './_components/hero'
 
 function Page() {
-	const t = useTranslate()
-
-	return <div className='mt-24'>{t('home')}</div>
+	return (
+		<>
+			<Hero />
+		</>
+	)
 }
 
 export default Page

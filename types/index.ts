@@ -7,3 +7,7 @@ export interface ChildProps {
 export interface LngParams {
 	params: { lng: string }
 }
+
+export interface LanguageDropdownProps {
+	isMobbile?: boolean
+}

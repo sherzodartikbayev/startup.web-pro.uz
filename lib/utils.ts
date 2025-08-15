@@ -21,3 +21,18 @@ export function localization(lng: string) {
 			return enUS
 	}
 }
+
+export function getCurrentLanguage(lng: string) {
+	switch (lng) {
+		case 'en':
+			return 'English'
+		case 'ru':
+			return 'Русский'
+		case 'uz':
+			return "O'zbekcha"
+		case 'tr':
+			return 'Türkçe'
+		default:
+			return 'English'
+	}
+}
