@@ -1,11 +1,9 @@
 'use client'
 
-import { useTranslation } from '@/i18n/client'
-import { useParams } from 'next/navigation'
+import useTranslate from '@/hook/use-translate'
 
 function Page() {
-	const { lng } = useParams()
-	const { t } = useTranslation(lng as string)
+	const t = useTranslate()
 
 	return <div className='mt-24'>{t('home')}</div>
 }
