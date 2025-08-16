@@ -11,6 +11,11 @@ import {
 	Rss,
 	Settings2,
 	User,
+	Facebook,
+	Link2,
+	Linkedin,
+	Send,
+	Twitter,
 } from 'lucide-react'
 
 import {
@@ -58,6 +63,8 @@ export const companies = [
 	DiDjango,
 	DiDocker,
 ]
+
+export const shareBtns = [Facebook, Link2, Linkedin, Send, Twitter]
 
 export const filterCourses = [
 	{ label: 'cateogry1', name: 'all' },

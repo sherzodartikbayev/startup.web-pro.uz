@@ -12,11 +12,12 @@ import Image from 'next/image'
 import { lngs } from '@/constants'
 import Link from 'next/link'
 import { cn, getCurrentLanguage } from '@/lib/utils'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { LanguageDropdownProps } from '@/types'
 
 function LanguageDropdown({ isMobbile = false }: LanguageDropdownProps) {
 	const { lng } = useParams()
+	const pathname = usePathname()
 
 	return (
 		<DropdownMenu>
@@ -37,7 +38,7 @@ function LanguageDropdown({ isMobbile = false }: LanguageDropdownProps) {
 			<DropdownMenuContent className='w-56'>
 				<DropdownMenuGroup>
 					{lngs.map(item => (
-						<Link href={`/${item.route}`} key={item.route}>
+						<Link href={`/${item.route}/${pathname.slice(4)}`} key={item.route}>
 							<DropdownMenuItem
 								className={cn(
 									'flex cursor-pointer p-2 hover:bg-secondary',

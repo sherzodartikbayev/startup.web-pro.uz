@@ -66,3 +66,9 @@ export interface IBlog {
 	content: { html: string }
 	slug: string
 }
+
+export interface ITopBar {
+	label: string
+	description?: string
+	extra?: string
+}
