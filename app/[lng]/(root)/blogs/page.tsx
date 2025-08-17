@@ -8,7 +8,7 @@ async function Page() {
 	return (
 		<>
 			<TopBar label='blogs' description='blogsDescription' />
-			<div className='container mx-auto max-w-6xl'>
+			<div className='container mx-auto max-w-6xl max-xl:px-5'>
 				<div className='mt-24 grid grid-cols-2 gap-x-4 gap-y-24 max-md:grid-cols-1'>
 					{blogs.map(blog => (
 						<BlogCard key={blog.slug} {...blog} />

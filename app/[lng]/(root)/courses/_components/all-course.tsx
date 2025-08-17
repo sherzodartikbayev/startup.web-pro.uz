@@ -15,7 +15,7 @@ function AllCourse() {
 	const t = useTranslate()
 
 	return (
-		<div className='container mx-auto mt-12 max-w-6xl'>
+		<div className='container mx-auto mt-12 max-w-6xl max-xl:px-5'>
 			<div className='flex items-center justify-between max-md:flex-col max-md:items-start max-md:space-y-2'>
 				<h2 className='max-md:self-end'>
 					{t('result1')}{' '}
