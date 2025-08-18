@@ -1,4 +1,6 @@
+import { LucideIcon } from 'lucide-react'
 import { ReactNode } from 'react'
+import { IconType } from 'react-icons/lib'
 
 export interface ChildProps {
 	children: ReactNode
@@ -71,4 +73,15 @@ export interface ITopBar {
 	label: string
 	description?: string
 	extra?: string
+}
+
+export interface IInstructorHeader {
+	title: string
+	description: string
+}
+
+export interface IStatisticsCard {
+	label: string
+	value: string
+	Icon: LucideIcon | IconType
 }
