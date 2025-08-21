@@ -20,7 +20,7 @@ function UserBox() {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Avatar className='size-10 cursor-pointer'>
-					<AvatarImage src={user?.imageUrl} />
+					<AvatarImage src={user?.imageUrl} className='object-cover' />
 				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent
