@@ -3,11 +3,13 @@ import Header from '../_components/header'
 import { MonitorPlay } from 'lucide-react'
 import { PiStudent } from 'react-icons/pi'
 import { GrMonitor } from 'react-icons/gr'
-import { courses } from '@/constants'
-import InstructorCourseCard from '@/components/cards/instructor-course.card'
 import ReviewCard from '@/components/cards/review.card'
+import { getCourses } from '@/actions/course.action'
+import InstructorCourseCard from '@/components/cards/instructor-course.card'
 
-function Page() {
+async function Page() {
+	const courses = await getCourses()
+
 	return (
 		<>
 			<Header title='Dashboard' description='Welcome to your dashboard' />
@@ -30,7 +32,10 @@ function Page() {
 			<div className='mt-4 grid grid-cols-3 gap-4'>
 				{courses
 					.map(course => (
-						<InstructorCourseCard key={course.title} {...course} />
+						<InstructorCourseCard
+							key={course._id}
+							course={JSON.parse(JSON.stringify(course))}
+						/>
 					))
 					.slice(0, 3)}
 			</div>
