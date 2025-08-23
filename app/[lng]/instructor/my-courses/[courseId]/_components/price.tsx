@@ -10,12 +10,13 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
+	FormLabel,
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import useToggleEdit from '@/hooks/use-toggle-edit'
-import { courseFieldsSchema } from '@/lib/validation'
+import { coursePriceSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Edit2, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
@@ -24,14 +25,14 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import z from 'zod'
 
-function CourseFields(course: ICourse) {
+function Price(course: ICourse) {
 	const { state, onToggle } = useToggleEdit()
 
 	return (
 		<Card>
 			<CardContent className='relative p-6'>
 				<div className='flex items-center justify-between'>
-					<span className='text-lg font-medium'>Course Title</span>
+					<span className='text-lg font-medium'>Price</span>
 					<Button size='icon' variant='ghost' onClick={onToggle}>
 						{state ? <X /> : <Edit2 />}
 					</Button>
@@ -45,16 +46,24 @@ function CourseFields(course: ICourse) {
 					<div className='flex flex-col space-y-2'>
 						<div className='flex items-center gap-2'>
 							<span className='font-space-grotesk font-bold text-muted-foreground'>
-								Title:
+								Old Price:
 							</span>
-							<span className='font-medium'>{course.title}</span>
+							<span className='font-medium'>
+								{course.oldPrice.toLocaleString('en-US', {
+									style: 'currency',
+									currency: 'USD',
+								})}
+							</span>
 						</div>
 						<div className='flex items-center gap-2'>
 							<span className='font-space-grotesk font-bold text-muted-foreground'>
-								Slug:
+								Current Price:
 							</span>
 							<span className='font-medium'>
-								{course.slug ?? 'Not configured'}
+								{course.currentPrice.toLocaleString('en-US', {
+									style: 'currency',
+									currency: 'USD',
+								})}
 							</span>
 						</div>
 					</div>
@@ -64,7 +73,7 @@ function CourseFields(course: ICourse) {
 	)
 }
 
-export default CourseFields
+export default Price
 
 interface FormsProps {
 	course: ICourse
@@ -76,18 +85,22 @@ function Forms({ course, onToggle }: FormsProps) {
 
 	const pathname = usePathname()
 
-	const form = useForm<z.infer<typeof courseFieldsSchema>>({
-		resolver: zodResolver(courseFieldsSchema),
+	const form = useForm<z.infer<typeof coursePriceSchema>>({
+		resolver: zodResolver(coursePriceSchema),
 		defaultValues: {
-			title: course.title,
-			slug: course.slug,
+			oldPrice: `${course.oldPrice}`,
+			currentPrice: `${course.currentPrice}`,
 		},
 	})
 
-	const onSubmit = (values: z.infer<typeof courseFieldsSchema>) => {
+	const onSubmit = (values: z.infer<typeof coursePriceSchema>) => {
 		setIsLoading(true)
-
-		const promise = updateCourse(course._id, values, pathname)
+		const { currentPrice, oldPrice } = values
+		const promise = updateCourse(
+			course._id,
+			{ oldPrice: +oldPrice, currentPrice: +currentPrice },
+			pathname
+		)
 			.then(() => onToggle())
 			.finally(() => setIsLoading(false))
 
@@ -105,11 +118,19 @@ function Forms({ course, onToggle }: FormsProps) {
 				<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
 					<FormField
 						control={form.control}
-						name='title'
+						name='oldPrice'
 						render={({ field }) => (
 							<FormItem>
+								<FormLabel>
+									Old price<span className='text-red-500'>*</span>
+								</FormLabel>
 								<FormControl>
-									<Input disabled={isLoading} {...field} />
+									<Input
+										{...field}
+										className='bg-secondary'
+										type='number'
+										disabled={isLoading}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -118,11 +139,19 @@ function Forms({ course, onToggle }: FormsProps) {
 
 					<FormField
 						control={form.control}
-						name='slug'
+						name='currentPrice'
 						render={({ field }) => (
 							<FormItem>
+								<FormLabel>
+									Current Price<span className='text-red-500'>*</span>
+								</FormLabel>
 								<FormControl>
-									<Input disabled={isLoading} {...field} />
+									<Input
+										{...field}
+										className='bg-secondary'
+										type='number'
+										disabled={isLoading}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
