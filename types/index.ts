@@ -85,3 +85,12 @@ export interface IStatisticsCard {
 	value: string
 	Icon: LucideIcon | IconType
 }
+
+export interface IInstructorMyCourseDetail {
+	params: { courseId: string }
+}
+
+export interface IConfirmDeleteModal {
+	onConfirm: () => void
+	children: ReactNode
+}

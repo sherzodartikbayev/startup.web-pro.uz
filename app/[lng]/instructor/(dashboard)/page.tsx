@@ -4,12 +4,8 @@ import { MonitorPlay } from 'lucide-react'
 import { PiStudent } from 'react-icons/pi'
 import { GrMonitor } from 'react-icons/gr'
 import ReviewCard from '@/components/cards/review.card'
-import { getCourses } from '@/actions/course.action'
-import InstructorCourseCard from '@/components/cards/instructor-course.card'
 
 async function Page() {
-	const courses = await getCourses()
-
 	return (
 		<>
 			<Header title='Dashboard' description='Welcome to your dashboard' />
@@ -30,14 +26,14 @@ async function Page() {
 			/>
 
 			<div className='mt-4 grid grid-cols-3 gap-4'>
-				{courses
+				{/* {courses
 					.map(course => (
 						<InstructorCourseCard
 							key={course._id}
 							course={JSON.parse(JSON.stringify(course))}
 						/>
 					))
-					.slice(0, 3)}
+					.slice(0, 3)} */}
 			</div>
 
 			<Header title='Reviews' description='Here are your latest reviews' />

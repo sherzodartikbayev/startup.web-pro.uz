@@ -31,6 +31,7 @@ import { ImageDown } from 'lucide-react'
 import { Dialog, DialogContent } from '../ui/dialog'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useUser } from '@clerk/nextjs'
 
 function CourseFieldsForm() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -38,6 +39,7 @@ function CourseFieldsForm() {
 	const [open, setOpen] = useState(false)
 
 	const router = useRouter()
+	const { user } = useUser()
 
 	const form = useForm<z.infer<typeof courseSchema>>({
 		resolver: zodResolver(courseSchema),
@@ -49,7 +51,15 @@ function CourseFieldsForm() {
 		if (!files) return null
 		const file = files[0]
 
-		const url = await uploadImage(file)
+		const promise = uploadImage(file)
+
+		toast.promise(promise, {
+			loading: 'Uploading...',
+			success: 'Successfully uploaded!',
+			error: 'Something went wrong!',
+		})
+
+		const url = await promise
 		setPreviewImage(url)
 	}
 
@@ -60,12 +70,15 @@ function CourseFieldsForm() {
 
 		setIsLoading(true)
 		const { oldPrice, currentPrice } = values
-		const promise = createCourse({
-			...values,
-			oldPrice: +oldPrice,
-			currentPrice: +currentPrice,
-			previewImage,
-		})
+		const promise = createCourse(
+			{
+				...values,
+				oldPrice: +oldPrice,
+				currentPrice: +currentPrice,
+				previewImage,
+			},
+			user?.id as string
+		)
 			.then(() => {
 				form.reset()
 				router.push('/en/instructor/my-courses')
@@ -321,7 +334,6 @@ function CourseFieldsForm() {
 					<div className='flex justify-end gap-4'>
 						<Button
 							type='button'
-							size={'lg'}
 							variant={'destructive'}
 							onClick={() => form.reset()}
 							disabled={isLoading}
@@ -329,14 +341,13 @@ function CourseFieldsForm() {
 							Clear
 						</Button>
 
-						<Button type='submit' size={'lg'} disabled={isLoading}>
+						<Button type='submit' disabled={isLoading}>
 							Submit
 						</Button>
 
 						{previewImage && (
 							<Button
 								type='button'
-								size='lg'
 								variant='outline'
 								onClick={() => setOpen(true)}
 							>
