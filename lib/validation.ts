@@ -47,3 +47,7 @@ export const coursePriceSchema = z.object({
 export const previewImageSchema = z.object({
 	previewImage: z.string(),
 })
+
+export const sectionSchema = z.object({
+	title: z.string().min(3),
+})
