@@ -21,3 +21,17 @@ export interface ISection {
 	position: number
 	course: string
 }
+
+export interface ILesson {
+	_id: string
+	title: string
+	position: string
+	videoUrl: string
+	content: string
+	free: boolean
+	duration: {
+		hours: string
+		minutes: string
+		seconds: string
+	}
+}

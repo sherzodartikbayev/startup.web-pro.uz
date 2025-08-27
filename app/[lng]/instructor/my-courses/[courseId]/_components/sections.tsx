@@ -70,7 +70,6 @@ function Sections({ course, sections }: Props) {
 			title: section.title,
 		}))
 
-		console.log(bulkUpdatedDate)
 		onReorder(bulkUpdatedDate)
 	}
 

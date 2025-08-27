@@ -39,10 +39,16 @@ export interface ILessonFields {
 	hours: string
 	minutes: string
 	seconds: string
+	free: boolean
 }
 
 export interface ICreateLesson {
 	lesson: ILessonFields
 	section: string
+	path: string
+}
+
+export interface IUpdatePosition {
+	lists: { _id: string; position: number }[]
 	path: string
 }

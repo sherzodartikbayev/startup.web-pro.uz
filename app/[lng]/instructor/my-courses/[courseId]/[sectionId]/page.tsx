@@ -7,14 +7,17 @@ import Link from 'next/link'
 import Action from './_components/action'
 import SectionField from './_components/section-field'
 import Lessons from './_components/lessons'
+import { getLessons } from '@/actions/lesson.action'
 
 interface Params {
 	params: { sectionId: string; courseId: string }
 }
 async function Page({ params }: Params) {
 	const sectionJSON = await getSectionById(params.sectionId)
+	const lessonJSON = await getLessons(params.sectionId)
 
 	const section = JSON.parse(JSON.stringify(sectionJSON))
+	const lessons = JSON.parse(JSON.stringify(lessonJSON))
 
 	return (
 		<>
@@ -42,7 +45,7 @@ async function Page({ params }: Params) {
 						</span>{' '}
 						<Settings2 />
 					</div>
-					<Lessons section={section} />
+					<Lessons section={section} lessons={lessons} />
 				</div>
 				<div className='flex flex-col space-y-2'>
 					<div className='flex items-center gap-2'>
