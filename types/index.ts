@@ -94,3 +94,9 @@ export interface IConfirmDeleteModal {
 	onConfirm: () => void
 	children: ReactNode
 }
+
+export interface UrlQueryParams {
+	params: string
+	key: string
+	value: string | null
+}
