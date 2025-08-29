@@ -13,6 +13,11 @@ export interface ICourse {
 	published: boolean
 	slug: string
 	tags: string
+	instructor: IUser
+	updatedAt: string
+	totalLessons: number
+	totalSections: number
+	totalDuration: string
 }
 
 export interface ISection {
@@ -25,14 +30,14 @@ export interface ISection {
 export interface ILesson {
 	_id: string
 	title: string
-	position: string
+	position: number
 	videoUrl: string
 	content: string
 	free: boolean
 	duration: {
-		hours: string
-		minutes: string
-		seconds: string
+		hours: number
+		minutes: number
+		seconds: number
 	}
 }
 

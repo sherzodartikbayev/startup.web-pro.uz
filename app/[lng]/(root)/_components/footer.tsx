@@ -60,7 +60,7 @@ function Footer() {
 								<Mail size={20} />
 								<a
 									className='text-sm hover:text-blue-500 hover:underline dark:hover:text-blue-300'
-									href='mailto:info@sammi.ac'
+									href='mailto:info@web-pro.uz'
 								>
 									info@web-pro.uz
 								</a>

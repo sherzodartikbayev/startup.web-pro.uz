@@ -5,33 +5,30 @@ import Image from 'next/image'
 import ReactStars from 'react-stars'
 import { PiStudentBold } from 'react-icons/pi'
 import { Clock3 } from 'lucide-react'
+import { ICourse } from '@/app.types'
+import { format } from 'date-fns'
 
-function Hero() {
+function Hero(course: ICourse) {
 	const t = useTranslate()
 
 	return (
 		<>
-			<h1 className='font-space-grotesk text-4xl font-bold'>
-				ReactJS full course
-			</h1>
+			<h1 className='font-space-grotesk text-4xl font-bold'>{course.title}</h1>
 
-			<p className='mt-4 text-muted-foreground'>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum nobis
-				commodi doloribus ipsa voluptate rerum praesentium.
-			</p>
+			<p className='mt-4 text-muted-foreground'>{course.description}</p>
 
 			<div className='mt-4 flex flex-wrap items-center gap-6'>
 				<div className='flex items-center gap-2'>
 					<Image
 						width={50}
 						height={50}
-						alt='author'
-						src={
-							'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr'
-						}
-						className='rounded-full'
+						alt={course.instructor.fullName}
+						src={course.instructor.picture}
+						className='rounded-full object-cover'
 					/>
-					<p className='font-space-grotesk font-bold'>Chris Impley</p>
+					<p className='font-space-grotesk font-bold'>
+						{course.instructor.fullName}
+					</p>
 				</div>
 
 				<div className='flex items-center gap-2 font-space-grotesk'>
@@ -48,14 +45,14 @@ function Hero() {
 				<div className='flex items-center gap-2'>
 					<Clock3 className='size-6' />
 					<p className='font-space-grotesk font-bold'>
-						{t('lastUpdated')} 11/2023
+						{t('lastUpdated')} {format(new Date(course.updatedAt), 'MM/yyyy')}
 					</p>
 				</div>
 			</div>
 
 			<Image
-				src='https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2Fa8573b7c-95b2-4459-8414-8eacde874b0a-kilwdl.png&w=1920&q=75'
-				alt='course'
+				src={course.previewImage}
+				alt={course.title}
 				width={1920}
 				height={1080}
 				className='mt-4 rounded-md object-cover'
