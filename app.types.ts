@@ -25,6 +25,7 @@ export interface ISection {
 	title: string
 	position: number
 	course: string
+	lessons: ILesson[]
 }
 
 export interface ILesson {

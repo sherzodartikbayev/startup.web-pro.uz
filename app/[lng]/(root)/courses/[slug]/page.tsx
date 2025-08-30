@@ -3,30 +3,29 @@ import Hero from './_components/hero'
 import Overview from './_components/overview'
 import Description from './_components/description'
 import { Separator } from '@/components/ui/separator'
-// import {
-// 	Carousel,
-// 	CarouselContent,
-// 	CarouselItem,
-// 	CarouselNext,
-// 	CarouselPrevious,
-// } from '@/components/ui/carousel'
-// import CourseCard from '@/components/cards/course.card'
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '@/components/ui/carousel'
+import CourseCard from '@/components/cards/course.card'
 import { translation } from '@/i18n/server'
-import { getDetailedCourse } from '@/actions/course.action'
+import { getDetailedCourse, getFeaturedCourses } from '@/actions/course.action'
+import { ICourse } from '@/app.types'
 
 interface Props {
-	params: {
-		lng: string
-		slug: string
-	}
+	params: { lng: string; slug: string }
 }
 
 async function Page({ params: { lng, slug } }: Props) {
 	const { t } = await translation(lng)
 	const courseJSON = await getDetailedCourse(slug)
+	const featuredCoursesJSON = await getFeaturedCourses()
 
 	const course = JSON.parse(JSON.stringify(courseJSON))
-	console.log(course)
+	const featuredCourse = JSON.parse(JSON.stringify(featuredCoursesJSON))
 
 	return (
 		<>
@@ -49,12 +48,12 @@ async function Page({ params: { lng, slug } }: Props) {
 					{t('youMayLike')}
 				</h1>
 
-				{/* <Carousel
+				<Carousel
 					opts={{ align: 'start' }}
 					className='mt-6 hidden w-full md:flex'
 				>
 					<CarouselContent>
-						{course.map(course => (
+						{featuredCourse.map((course: ICourse) => (
 							<CarouselItem
 								key={course.title}
 								className='md:basis-1/2 lg:basis-1/3'
@@ -66,7 +65,7 @@ async function Page({ params: { lng, slug } }: Props) {
 
 					<CarouselPrevious />
 					<CarouselNext />
-				</Carousel> */}
+				</Carousel>
 			</div>
 		</>
 	)
