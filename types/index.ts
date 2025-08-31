@@ -99,4 +99,10 @@ export interface UrlQueryParams {
 	params: string
 	key: string
 	value: string | null
+	toCourses?: boolean
+}
+
+export interface RemoveUrlQueryParams {
+	params: string
+	keysToRemove: string[]
 }

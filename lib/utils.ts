@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { enUS, ruRU, trTR } from '@clerk/localizations'
 import { uzUZ } from './uz-UZ'
 import qs from 'query-string'
-import { UrlQueryParams } from '@/types'
+import { RemoveUrlQueryParams, UrlQueryParams } from '@/types'
 import { ILesson } from '@/app.types'
 
 export function cn(...inputs: ClassValue[]) {
@@ -58,10 +58,36 @@ export function getReadingTime(content: string) {
 	}
 }
 
-export function formUrlQuery({ key, params, value }: UrlQueryParams) {
+export function formUrlQuery({
+	key,
+	params,
+	value,
+	toCourses = false,
+}: UrlQueryParams) {
 	const currentUrl = qs.parse(params)
 
 	currentUrl[key] = value
+
+	return qs.stringifyUrl(
+		{
+			url: toCourses
+				? `/${window.location.pathname.split('/')[1]}/courses`
+				: window.location.pathname,
+			query: currentUrl,
+		},
+		{ skipNull: true }
+	)
+}
+
+export const removeKeysFromQuery = ({
+	params,
+	keysToRemove,
+}: RemoveUrlQueryParams) => {
+	const currentUrl = qs.parse(params)
+
+	keysToRemove.forEach(key => {
+		delete currentUrl[key]
+	})
 
 	return qs.stringifyUrl(
 		{
