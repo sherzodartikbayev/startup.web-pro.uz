@@ -22,7 +22,7 @@ export interface ICreateUser {
 
 export interface IUpdateUser {
 	clerkId: string
-	path: string
+	path?: string
 	updatedData: Partial<IUser>
 }
 
