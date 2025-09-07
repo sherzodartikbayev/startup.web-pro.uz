@@ -25,12 +25,12 @@ function Hero() {
 					</h1>
 					<p className='text-muted-foreground'>{t('heroDescription')}</p>
 					<div className='flex gap-4'>
-						<Link href='/course'>
+						<Link href='/courses'>
 							<Button variant='outline' size='lg' rounded='full'>
 								{t('findCourses')}
 							</Button>
 						</Link>
-						<Link href='/course'>
+						<Link href='/blogs'>
 							<Button size='lg' rounded='full'>
 								{t('blogs')}
 							</Button>
