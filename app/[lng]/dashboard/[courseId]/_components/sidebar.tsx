@@ -3,7 +3,6 @@ import { Progress } from '@/components/ui/progress'
 import { translation } from '@/i18n/server'
 import { auth } from '@clerk/nextjs'
 import Sections from './sections'
-import { ISection } from '@/app.types'
 
 interface Props {
 	courseId: string
@@ -24,12 +23,12 @@ async function Sidebar({ courseId, lng }: Props) {
 				<h1 className='line-clamp-1 text-xl font-medium'>{course.title}</h1>
 				<Progress value={progressPercentage} className='h-4' />
 				<p className='text-sm'>
-					{progressPercentage}% {t('completed')}
+					{progressPercentage.toFixed()}% {t('completed')}
 				</p>
 			</div>
 
 			<div className='mt-4'>
-				<Sections sections={sections as ISection[]} />
+				<Sections sections={JSON.parse(JSON.stringify(sections))} />
 			</div>
 		</div>
 	)
