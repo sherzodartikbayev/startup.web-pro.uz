@@ -2,14 +2,14 @@ import { getDashboardCourse } from '@/actions/course.action'
 import { Progress } from '@/components/ui/progress'
 import { translation } from '@/i18n/server'
 import { auth } from '@clerk/nextjs'
-import Sections from './sections'
+import Sections from '../../_components/sections'
 
 interface Props {
 	courseId: string
 	lng: string
 }
 
-async function Sidebar({ courseId, lng }: Props) {
+async function MobileCurriculum({ courseId, lng }: Props) {
 	const { t } = await translation(lng)
 	const { userId } = auth()
 	const { course, progressPercentage, sections } = await getDashboardCourse(
@@ -18,7 +18,7 @@ async function Sidebar({ courseId, lng }: Props) {
 	)
 
 	return (
-		<div className='custom-scrollbar sticky inset-y-0 left-0 z-50 hidden h-screen w-80 overflow-y-scroll border-r bg-gray-200 dark:bg-gray-900 lg:block'>
+		<div className='z-10 mt-4 rounded-md bg-background p-2'>
 			<div className='flex flex-col space-y-2 p-2'>
 				<h1 className='line-clamp-1 text-xl font-medium'>{course.title}</h1>
 				<Progress value={progressPercentage} className='h-4' />
@@ -34,4 +34,4 @@ async function Sidebar({ courseId, lng }: Props) {
 	)
 }
 
-export default Sidebar
+export default MobileCurriculum

@@ -2,6 +2,7 @@ import { getLessson } from '@/actions/lesson.action'
 import { translation } from '@/i18n/server'
 import parse from 'html-react-parser'
 import VideoLesson from './_components/video-lesson'
+import MobileCurriculum from './_components/mobile-curriculum'
 
 interface Props {
 	params: { lessonId: string; courseId: string; lng: string }
@@ -20,12 +21,15 @@ async function Page({ params: { lessonId, courseId, lng } }: Props) {
 					<h1 className='mb-2 font-space-grotesk text-xl font-medium text-primary'>
 						{t('usefullInformation')}
 					</h1>
-
 					<div className='prose max-w-none flex-1 dark:prose-invert'>
 						{parse(lesson.content)}
 					</div>
 				</div>
 			)}
+
+			<div className='block lg:hidden'>
+				<MobileCurriculum courseId={courseId} lng={lng} />
+			</div>
 		</>
 	)
 }
