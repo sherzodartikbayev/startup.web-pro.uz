@@ -2,7 +2,7 @@
 
 import { deleteSectionById } from '@/actions/section.action'
 import { ISection } from '@/app.types'
-import ConfirmDeleteModel from '@/components/modules/confirm-delete.modal'
+import ConfirmDeleteModel from '@/components/modals/confirm-delete.modal'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'

@@ -68,3 +68,13 @@ export interface IUser {
 	github: string
 	youtube: string
 }
+
+export interface IReview {
+	review: string
+	rating: number
+	user: IUser
+	createdAt: string
+	_id: string
+	course: ICourse
+	isFlag: boolean
+}

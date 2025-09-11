@@ -71,3 +71,7 @@ export const profileSchema = z.object({
 	github: z.string().url().optional(),
 	youtube: z.string().url().optional(),
 })
+
+export const reviewSchema = z.object({
+	data: z.string(),
+})

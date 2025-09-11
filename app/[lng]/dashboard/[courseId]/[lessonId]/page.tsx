@@ -1,8 +1,8 @@
-import { getLessson } from '@/actions/lesson.action'
 import { translation } from '@/i18n/server'
 import parse from 'html-react-parser'
 import VideoLesson from './_components/video-lesson'
 import MobileCurriculum from './_components/mobile-curriculum'
+import { getLesson } from '@/actions/lesson.action'
 
 interface Props {
 	params: { lessonId: string; courseId: string; lng: string }
@@ -10,7 +10,7 @@ interface Props {
 
 async function Page({ params: { lessonId, courseId, lng } }: Props) {
 	const { t } = await translation(lng)
-	const lesson = await getLessson(lessonId)
+	const lesson = await getLesson(lessonId)
 
 	return (
 		<>

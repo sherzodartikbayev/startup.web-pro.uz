@@ -57,7 +57,8 @@
 		"svix": "^1.19.0",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss-animate": "^1.0.7",
-		"zod": "^4.0.17"
+		"zod": "^4.0.17",
+		"zustand": "^5.0.8"
 	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.5.10",

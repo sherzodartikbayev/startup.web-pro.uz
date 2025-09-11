@@ -74,17 +74,18 @@ export const editLesson = async (
 		await Lesson.findByIdAndUpdate(lessonId, { ...lesson, duration })
 		revalidatePath(path)
 	} catch (error) {
-		console.log(error)
 		throw new Error('Something went wrong!')
 	}
 }
 
-export const editLessonPosition = async ({ lists, path }: IUpdatePosition) => {
+export const editLessonPosition = async (params: IUpdatePosition) => {
 	try {
 		await connectToDatabase()
+		const { lists, path } = params
 		for (const item of lists) {
 			await Lesson.findByIdAndUpdate(item._id, { position: item.position })
 		}
+
 		revalidatePath(path)
 	} catch (error) {
 		throw new Error('Something went wrong!')
@@ -99,7 +100,6 @@ export const completeLesson = async (
 	try {
 		await connectToDatabase()
 		const userProgress = await UserProgress.findOne({ userId, lessonId })
-
 		if (userProgress) {
 			userProgress.isCompleted = true
 			await userProgress.save()
@@ -117,7 +117,7 @@ export const completeLesson = async (
 
 		revalidatePath(path)
 	} catch (error) {
-		throw new Error('Somehting went wrong!')
+		throw new Error('Something went wrong!')
 	}
 }
 
@@ -132,7 +132,7 @@ export const uncompleteLesson = async (lessonId: string, path: string) => {
 	}
 }
 
-export const getLessson = async (id: string) => {
+export const getLesson = async (id: string) => {
 	try {
 		await connectToDatabase()
 		return await Lesson.findById(id).select('title content videoUrl')
@@ -161,14 +161,16 @@ export const getNextLesson = async (lessonId: string, courseId: string) => {
 		}
 
 		const nextLesson = lessons[lessonIndex + 1]
+
 		const section = await Section.findOne({ lessons: nextLesson._id })
+
 		return { lessonId: nextLesson._id, sectionId: section._id }
 	} catch (error) {
 		throw new Error('Something went wrong!')
 	}
 }
 
-export const getLastLessson = async (clerkId: string, courseId: string) => {
+export const getLastLesson = async (clerkId: string, courseId: string) => {
 	try {
 		await connectToDatabase()
 
@@ -206,6 +208,6 @@ export const getLastLessson = async (clerkId: string, courseId: string) => {
 			sectionId: section._id,
 		}
 	} catch (error) {
-		throw new Error('Somehting went wrong!')
+		throw new Error('Something went wrong!')
 	}
 }
