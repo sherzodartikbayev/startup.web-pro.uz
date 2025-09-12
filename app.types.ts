@@ -70,7 +70,7 @@ export interface IUser {
 }
 
 export interface IReview {
-	review: string
+	data: string
 	rating: number
 	user: IUser
 	createdAt: string

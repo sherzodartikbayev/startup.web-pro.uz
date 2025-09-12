@@ -134,3 +134,15 @@ export const formatLessonTime = (lesson: ILesson) => {
 
 	return formattedTime
 }
+
+export const formatAndDivideNumber = (num: number) => {
+	if (num >= 1000000) {
+		const formattedNumber = (num / 1000000).toFixed(1)
+		return `${formattedNumber}M`
+	} else if (num >= 1000) {
+		const formattedNumber = (num / 1000).toFixed(1)
+		return `${formattedNumber}K`
+	} else {
+		return num.toString()
+	}
+}
