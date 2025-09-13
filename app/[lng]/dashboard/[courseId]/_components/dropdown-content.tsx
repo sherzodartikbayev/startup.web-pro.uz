@@ -36,9 +36,9 @@ function DropdownContent() {
 		}
 
 		toast.promise(promise, {
-			loading: 'Loading...',
-			success: `Successfully added to ${type} !`,
-			error: `Course already added to ${type} !`,
+			loading: t('loading'),
+			success: t('successfully'),
+			error: t('alreadyAdded'),
 		})
 	}
 

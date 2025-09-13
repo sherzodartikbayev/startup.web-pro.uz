@@ -5,6 +5,7 @@ import { uzUZ } from './uz-UZ'
 import qs from 'query-string'
 import { RemoveUrlQueryParams, UrlQueryParams } from '@/types'
 import { ILesson } from '@/app.types'
+import { enUS as en, uz, tr, ru } from 'date-fns/locale'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -145,4 +146,11 @@ export const formatAndDivideNumber = (num: number) => {
 	} else {
 		return num.toString()
 	}
+}
+
+export const getTimeLocale = (lng: string) => {
+	if (lng === 'en') return en
+	if (lng === 'ru') return ru
+	if (lng === 'uz') return uz
+	if (lng === 'tr') return tr
 }
