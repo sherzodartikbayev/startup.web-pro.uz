@@ -14,11 +14,13 @@ import useTranslate from '@/hooks/use-translate'
 import Mobile from './mobile'
 import { useParams, usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useCart } from '@/hooks/use-cart'
 
 function Navbar() {
 	const t = useTranslate()
 	const pathname = usePathname()
 	const { lng } = useParams()
+	const { cartsLength } = useCart()
 
 	return (
 		<header className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
@@ -44,11 +46,23 @@ function Navbar() {
 
 				<div className='flex items-center gap-2'>
 					<div className='flex items-center gap-2 pr-3 md:border-r'>
-						<div className='hidden md:flex'>
+						<div className='hidden gap-1 md:flex'>
 							<GlobalSearch />
 							<LanguageDropdown />
-							<Button size='icon' variant='ghost'>
-								<ShoppingCart />
+							<Button
+								size='icon'
+								variant={cartsLength() ? 'secondary' : 'ghost'}
+								asChild
+								className='relative'
+							>
+								<Link href='/shopping/cart'>
+									<ShoppingCart />
+									{cartsLength() ? (
+										<div className='absolute -right-2 -top-2 flex size-6 items-center justify-center rounded-full bg-destructive'>
+											{cartsLength()}
+										</div>
+									) : null}
+								</Link>
 							</Button>
 						</div>
 						<Mobile />
