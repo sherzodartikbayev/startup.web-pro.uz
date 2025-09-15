@@ -13,14 +13,12 @@ import {
 import { GrCertificate } from 'react-icons/gr'
 import { BiCategory } from 'react-icons/bi'
 import { useState } from 'react'
-import { useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/hooks/use-cart'
 
 function Description(course: ICourse) {
 	const [isLoading, setIsLoading] = useState(false)
 
-	const { userId } = useAuth()
 	const t = useTranslate()
 	const router = useRouter()
 	const { addToCart } = useCart()

@@ -44,7 +44,7 @@ function CourseCard(course: ICourse) {
 								})}
 							</div>
 							<div className='font-space-grotesk text-sm font-bold'>
-								{course.oldPrice.toLocaleString('en-US', {
+								{course.currentPrice.toLocaleString('en-US', {
 									style: 'currency',
 									currency: 'USD',
 								})}
