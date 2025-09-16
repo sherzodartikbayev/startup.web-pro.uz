@@ -12,8 +12,13 @@ import {
 } from '@/components/ui/carousel'
 import CourseCard from '@/components/cards/course.card'
 import { translation } from '@/i18n/server'
-import { getDetailedCourse, getFeaturedCourses } from '@/actions/course.action'
+import {
+	getDetailedCourse,
+	getFeaturedCourses,
+	getIsPurchase,
+} from '@/actions/course.action'
 import { ICourse } from '@/app.types'
+import { auth } from '@clerk/nextjs'
 
 interface Props {
 	params: { lng: string; slug: string }
@@ -21,24 +26,26 @@ interface Props {
 
 async function Page({ params: { lng, slug } }: Props) {
 	const { t } = await translation(lng)
+	const { userId } = auth()
 	const courseJSON = await getDetailedCourse(slug)
-	const featuredCoursesJSON = await getFeaturedCourses()
+	const coursesJSON = await getFeaturedCourses()
+	const isPurchase = await getIsPurchase(userId!, slug)
 
 	const course = JSON.parse(JSON.stringify(courseJSON))
-	const featuredCourse = JSON.parse(JSON.stringify(featuredCoursesJSON))
+	const courses = JSON.parse(JSON.stringify(coursesJSON))
 
 	return (
 		<>
 			<TopBar label='allCourses' extra='Full Courses ReactJS' />
 
-			<div className='container mx-auto max-w-6xl max-xl:px-5'>
+			<div className='container mx-auto max-w-6xl'>
 				<div className='grid grid-cols-3 gap-4 pt-12'>
 					<div className='col-span-2 max-lg:col-span-3'>
 						<Hero {...course} />
 						<Overview {...course} />
 					</div>
 					<div className='col-span-1 max-lg:col-span-3'>
-						<Description {...course} />
+						<Description course={course} isPurchase={isPurchase} />
 					</div>
 				</div>
 
@@ -48,12 +55,9 @@ async function Page({ params: { lng, slug } }: Props) {
 					{t('youMayLike')}
 				</h1>
 
-				<Carousel
-					opts={{ align: 'start' }}
-					className='mt-6 hidden w-full md:flex'
-				>
-					<CarouselContent>
-						{featuredCourse.map((course: ICourse) => (
+				<Carousel opts={{ align: 'start' }} className='mt-6 w-full'>
+					<CarouselContent className='w-full'>
+						{courses.map((course: ICourse) => (
 							<CarouselItem
 								key={course.title}
 								className='md:basis-1/2 lg:basis-1/3'
@@ -62,7 +66,6 @@ async function Page({ params: { lng, slug } }: Props) {
 							</CarouselItem>
 						))}
 					</CarouselContent>
-
 					<CarouselPrevious />
 					<CarouselNext />
 				</Carousel>

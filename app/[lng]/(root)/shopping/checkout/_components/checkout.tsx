@@ -1,33 +1,48 @@
 'use client'
 
+import { purchaseCourse } from '@/actions/course.action'
 import { payment } from '@/actions/payment.action'
 import FillLoading from '@/components/shared/fill-loading'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useCart } from '@/hooks/use-cart'
 import useTranslate from '@/hooks/use-translate'
 import { addressSchema } from '@/lib/validation'
+import { useAuth } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
 	CardCvcElement,
 	CardExpiryElement,
 	CardNumberElement,
+	useElements,
+	useStripe,
 } from '@stripe/react-stripe-js'
 import { AlertCircle } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import z from 'zod'
+import { z } from 'zod'
 
 function Checkout() {
-	const [isLoading, setIsLoading] = useState(false)
+	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
 
+	const elements = useElements()
+	const stripe = useStripe()
 	const { resolvedTheme } = useTheme()
+	const { totalPrice, taxes, carts, clearCart } = useCart()
 	const t = useTranslate()
-	const { totalPrice, taxes } = useCart()
+	const { userId } = useAuth()
+	const router = useRouter()
 
 	const cardStyles = {
 		base: {
@@ -48,23 +63,51 @@ function Checkout() {
 
 	const form = useForm<z.infer<typeof addressSchema>>({
 		resolver: zodResolver(addressSchema),
-		defaultValues: {
-			fullName: '',
-			address: '',
-			city: '',
-			zip: '',
-		},
+		defaultValues: {},
 	})
 
 	const onSubmit = async (values: z.infer<typeof addressSchema>) => {
-		await payment(1000)
-		setIsLoading(false)
-		setError('')
+		if (!stripe || !elements) return null
+		setLoading(true)
+
+		const { address, city, fullName, zip } = values
+
+		const { error, paymentMethod } = await stripe.createPaymentMethod({
+			type: 'card',
+			card: elements.getElement(CardNumberElement)!,
+			billing_details: {
+				name: fullName,
+				address: { line1: address, city, postal_code: zip },
+			},
+		})
+
+		if (error) {
+			setLoading(false)
+			setError(`${t('paymentError')} ${error.message}`)
+		} else {
+			const price = totalPrice() + taxes()
+			const clientSecret = await payment(price, userId!, paymentMethod.id)
+
+			const { error, paymentIntent } = await stripe.confirmCardPayment(
+				clientSecret!
+			)
+
+			if (error) {
+				setLoading(false)
+				setError(`${t('paymentError')} ${error.message}`)
+			} else {
+				for (const course of carts) {
+					purchaseCourse(course._id, userId!)
+				}
+				router.push(`/shopping/success?pi=${paymentIntent.id}`)
+				setTimeout(clearCart, 5000)
+			}
+		}
 	}
 
 	return (
 		<>
-			{isLoading && <FillLoading />}
+			{loading && <FillLoading />}
 			{error && (
 				<Alert variant='destructive' className='mb-4'>
 					<AlertCircle className='size-4' />
@@ -72,7 +115,6 @@ function Checkout() {
 					<AlertDescription>{error}</AlertDescription>
 				</Alert>
 			)}
-
 			<div className='mt-4 flex gap-2'>
 				<div className='w-3/5 rounded-md border bg-secondary px-2 py-3'>
 					<CardNumberElement
@@ -110,10 +152,11 @@ function Checkout() {
 										<Input
 											className='h-11 bg-secondary'
 											placeholder={t('fullName')}
-											disabled={isLoading}
+											disabled={loading}
 											{...field}
 										/>
 									</FormControl>
+									<FormMessage />
 								</FormItem>
 							)}
 						/>
@@ -127,10 +170,11 @@ function Checkout() {
 										<Input
 											className='h-11 bg-secondary'
 											placeholder={t('address')}
-											disabled={isLoading}
+											disabled={loading}
 											{...field}
 										/>
 									</FormControl>
+									<FormMessage />
 								</FormItem>
 							)}
 						/>
@@ -145,10 +189,11 @@ function Checkout() {
 											<Input
 												className='h-11 bg-secondary'
 												placeholder={t('city')}
-												disabled={isLoading}
+												disabled={loading}
 												{...field}
 											/>
 										</FormControl>
+										<FormMessage />
 									</FormItem>
 								)}
 							/>
@@ -162,10 +207,11 @@ function Checkout() {
 											<Input
 												className='h-11 bg-secondary'
 												placeholder={t('zipCode')}
-												disabled={isLoading}
+												disabled={loading}
 												{...field}
 											/>
 										</FormControl>
+										<FormMessage />
 									</FormItem>
 								)}
 							/>
@@ -174,7 +220,7 @@ function Checkout() {
 						<Button
 							className='group h-11 max-md:w-full'
 							type='submit'
-							disabled={isLoading}
+							disabled={loading}
 						>
 							<span>
 								{t('payNow')}{' '}
