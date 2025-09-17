@@ -14,7 +14,6 @@ interface Props extends SearchParamsProps {
 async function Page({ params, searchParams }: Props) {
 	const payment = await retrievePayment(searchParams.pi!)
 	const { t } = await translation(params.lng)
-	console.log(payment)
 
 	return (
 		<>

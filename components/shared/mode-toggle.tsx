@@ -1,9 +1,9 @@
 'use client'
 
+import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
-import { Moon, Sun } from 'lucide-react'
 
 function ModeToggle() {
 	const [mount, setMount] = useState(false)
@@ -12,11 +12,11 @@ function ModeToggle() {
 	useEffect(() => setMount(true), [])
 
 	return mount && resolvedTheme === 'dark' ? (
-		<Button size='icon' variant='ghost' onClick={() => setTheme('light')}>
+		<Button size={'icon'} variant={'ghost'} onClick={() => setTheme('light')}>
 			<Sun />
 		</Button>
 	) : (
-		<Button size='icon' variant='ghost' onClick={() => setTheme('dark')}>
+		<Button size={'icon'} onClick={() => setTheme('dark')} variant={'ghost'}>
 			<Moon />
 		</Button>
 	)

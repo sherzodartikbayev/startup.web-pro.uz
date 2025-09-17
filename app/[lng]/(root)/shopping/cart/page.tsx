@@ -49,7 +49,7 @@ function Page() {
 						</CardContent>
 					</Card>
 
-					<div className=''>
+					<div>
 						<Card className='bg-gradient-to-t from-secondary to-background'>
 							<CardContent className='py-4'>
 								<h1 className='font-space-grotesk text-2xl font-bold'>
@@ -90,7 +90,7 @@ function Page() {
 										{t('total')}
 									</div>
 									<div className='font-medium'>
-										{(taxes() + totalPrice()).toLocaleString('en-US', {
+										{(totalPrice() + taxes()).toLocaleString('en-US', {
 											style: 'currency',
 											currency: 'USD',
 										})}
@@ -101,9 +101,9 @@ function Page() {
 									<Button
 										asChild
 										className='group mt-3 flex w-full items-center justify-between px-2 font-space-grotesk font-bold'
-										size='lg'
+										size={'lg'}
 									>
-										<Link href='/shopping/checkout'>
+										<Link href={'/shopping/checkout'}>
 											<span>
 												{(totalPrice() + taxes()).toLocaleString('en-US', {
 													style: 'currency',

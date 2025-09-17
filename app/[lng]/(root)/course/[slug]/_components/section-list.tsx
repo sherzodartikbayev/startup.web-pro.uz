@@ -1,5 +1,3 @@
-'use client'
-
 import { ISection } from '@/app.types'
 import {
 	AccordionContent,
@@ -19,21 +17,20 @@ function SectionList(section: ISection) {
 			<AccordionTrigger className='accordion-course flex w-full items-center justify-between bg-primary p-4 hover:no-underline'>
 				<div className='flex items-center gap-2'>
 					<ChevronsUpDown strokeWidth={1.75} className='size-4' />
-					<div className='text-left font-space-grotesk text-sm font-semibold'>
+					<div className='text-left font-space-grotesk text-[14px] font-semibold'>
 						{section.title}
 					</div>
 				</div>
 				<div className='hidden items-center text-sm lg:flex'>
-					<div className=''>
+					<div>
 						{section.lessons.length} {t('lessons')}
 					</div>
 					<Dot />
-					<div className=''>
+					<div>
 						{calculateTotalDuration(section.lessons)} {t('hours')}
 					</div>
 				</div>
 			</AccordionTrigger>
-
 			<AccordionContent>
 				<div className='mt-2 border-l-2 border-l-gray-800 p-4'>
 					{section.lessons.map(lesson => (

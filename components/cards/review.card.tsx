@@ -9,8 +9,8 @@ import { useParams } from 'next/navigation'
 import useTranslate from '@/hooks/use-translate'
 
 function ReviewCard({ review }: { review: IReview }) {
-	const t = useTranslate()
 	const { lng } = useParams()
+	const t = useTranslate()
 
 	return (
 		<div className='mt-6 border-t border-t-secondary'>

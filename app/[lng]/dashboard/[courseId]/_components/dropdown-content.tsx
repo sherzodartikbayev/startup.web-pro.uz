@@ -1,5 +1,3 @@
-'use client'
-
 import { addArchiveCourse, addFavoriteCourse } from '@/actions/course.action'
 import {
 	DropdownMenuContent,
@@ -38,7 +36,7 @@ function DropdownContent() {
 		toast.promise(promise, {
 			loading: t('loading'),
 			success: t('successfully'),
-			error: t('alreadyAdded'),
+			error: `${t('alreadyAdded')}!`,
 		})
 	}
 

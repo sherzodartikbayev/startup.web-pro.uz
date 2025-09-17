@@ -35,17 +35,13 @@ export const informationSchema = z.object({
 
 export const selectFieldsSchema = z.object({
 	level: z.string(),
-	category: z.string(),
 	language: z.string(),
+	category: z.string(),
 })
 
-export const coursePriceSchema = z.object({
+export const priceSchema = z.object({
 	oldPrice: z.string(),
 	currentPrice: z.string(),
-})
-
-export const previewImageSchema = z.object({
-	previewImage: z.string(),
 })
 
 export const sectionSchema = z.object({

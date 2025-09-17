@@ -15,7 +15,7 @@ function InstructorCard(instructor: IInstructor) {
 			<h1 className='font-space-grotesk text-2xl font-bold'>
 				{instructor.name}
 			</h1>
-			<h3 className='font-medium text-muted-foreground'></h3>
+			<h3 className='font-medium text-muted-foreground'>{instructor.job}</h3>
 		</div>
 	)
 }

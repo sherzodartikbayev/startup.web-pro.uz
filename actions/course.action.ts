@@ -2,7 +2,7 @@
 
 import Course from '@/database/course.model'
 import { connectToDatabase } from '@/lib/mongoose'
-import { GetAllCoursesParams, GetCourseParams, ICreateCourse } from './types'
+import { GetAllCoursesParams, GetCoursesParams, ICreateCourse } from './types'
 import { ICourse, ILesson } from '@/app.types'
 import { revalidatePath } from 'next/cache'
 import User from '@/database/user.model'
@@ -26,10 +26,11 @@ export const createCourse = async (data: ICreateCourse, clerkId: string) => {
 	}
 }
 
-export const getCourses = async (params: GetCourseParams) => {
+export const getCourses = async (params: GetCoursesParams) => {
 	try {
 		await connectToDatabase()
 		const { clerkId, page = 1, pageSize = 3 } = params
+
 		const skipAmount = (page - 1) * pageSize
 
 		const user = await User.findOne({ clerkId })
@@ -54,19 +55,19 @@ export const getCourses = async (params: GetCourseParams) => {
 				},
 			})
 
-		const totalEarnings = allCourses
+		const totalStudents = allCourses
+			.map(c => c.purchases.length)
+			.reduce((a, b) => a + b, 0)
+
+		const totalEearnings = allCourses
 			.map(c => c.purchases)
 			.flat()
 			.map(p => p.course.currentPrice)
 			.reduce((a, b) => a + b, 0)
 
-		const totalStudents = allCourses
-			.map(c => c.purchases.length)
-			.reduce((a, b) => a + b, 0)
-
-		return { courses, isNext, totalCourses, totalEarnings, totalStudents }
+		return { courses, isNext, totalCourses, totalEearnings, totalStudents }
 	} catch (error) {
-		throw new Error('Something went wrong while creating courses!')
+		throw new Error('Soething went wrong while getting course!')
 	}
 }
 
@@ -76,7 +77,7 @@ export const getCourseById = async (id: string) => {
 		const course = await Course.findById(id)
 		return course as ICourse
 	} catch (error) {
-		throw new Error('Something went wrong while getting course!')
+		throw new Error('Soething went wrong while getting course!')
 	}
 }
 
@@ -108,7 +109,7 @@ export const getFeaturedCourses = cache(async () => {
 	try {
 		await connectToDatabase()
 		const courses = await Course.find({ published: true })
-			.limit(9)
+			.limit(6)
 			.sort({ createdAt: -1 })
 			.select('previewImage title slug oldPrice currentPrice instructor')
 			.populate({
@@ -119,7 +120,7 @@ export const getFeaturedCourses = cache(async () => {
 
 		return courses
 	} catch (error) {
-		throw new Error('Smoehting went wrong while getting featured courses!')
+		throw new Error('Something went wrong while getting featured courses!')
 	}
 })
 
@@ -174,7 +175,7 @@ export const getDetailedCourse = cache(async (id: string) => {
 	}
 })
 
-export const getAllCourse = async (params: GetAllCoursesParams) => {
+export const getAllCourses = async (params: GetAllCoursesParams) => {
 	try {
 		await connectToDatabase()
 		const { searchQuery, filter, page = 1, pageSize = 6 } = params
@@ -184,11 +185,7 @@ export const getAllCourse = async (params: GetAllCoursesParams) => {
 		const query: FilterQuery<typeof Course> = {}
 
 		if (searchQuery) {
-			query.$or = [
-				{
-					title: { $regex: new RegExp(searchQuery, 'i') },
-				},
-			]
+			query.$or = [{ title: { $regex: new RegExp(searchQuery, 'i') } }]
 		}
 
 		let sortOptions = {}
@@ -209,11 +206,11 @@ export const getAllCourse = async (params: GetAllCoursesParams) => {
 			case 'english':
 				query.language = 'english'
 				break
-			case 'russian':
-				query.language = 'russian'
-				break
 			case 'uzbek':
 				query.language = 'uzbek'
+				break
+			case 'russian':
+				query.language = 'russian'
 				break
 			case 'turkish':
 				query.language = 'turkish'
@@ -247,7 +244,7 @@ export const getAllCourse = async (params: GetAllCoursesParams) => {
 
 		return { courses, isNext, totalCourses }
 	} catch (error) {
-		throw new Error('Somehting went wrong!')
+		throw new Error('Something went wrong!')
 	}
 }
 
@@ -263,9 +260,8 @@ export const purchaseCourse = async (course: string, clerkId: string) => {
 				match: { user: user._id },
 			})
 
-		if (checkCourse.purchases.length > 0) {
+		if (checkCourse.purchases.length > 0)
 			return JSON.parse(JSON.stringify({ status: 200 }))
-		}
 
 		const purchase = await Purchase.create({ user: user._id, course })
 

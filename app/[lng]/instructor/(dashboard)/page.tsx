@@ -37,7 +37,7 @@ async function Page() {
 				/>
 				<StatisticsCard
 					label='Total sales'
-					value={result.totalEarnings.toLocaleString('en-US', {
+					value={result.totalEearnings.toLocaleString('en-US', {
 						style: 'currency',
 						currency: 'USD',
 					})}

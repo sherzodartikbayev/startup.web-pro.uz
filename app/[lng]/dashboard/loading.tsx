@@ -5,11 +5,11 @@ import { Loader2 } from 'lucide-react'
 function Loading() {
 	return (
 		<div className='flex'>
-			<Skeleton className='hidden h-screen w-96 rounded-none bg-gray-200 dark:bg-gray-900 lg:block'>
+			<Skeleton className='hidden h-[100vh] w-96 rounded-none bg-gray-200 dark:bg-gray-900 lg:block'>
 				<div className='pt-4'>
 					<Skeleton className='mx-auto h-[10vh] w-[90%]'>
 						<div className='pl-2 pt-4'>
-							<Skeleton className='h-[24px] w-3/5 bg-blue-500' />
+							<Skeleton className='h-[24px] w-[60%] bg-blue-500' />
 						</div>
 					</Skeleton>
 				</div>

@@ -24,8 +24,8 @@ export interface ICourse {
 }
 
 export interface ISection {
-	_id: string
 	title: string
+	_id: string
 	position: number
 	course: string
 	lessons: ILesson[]
@@ -52,10 +52,6 @@ export interface IUserProgress {
 	isCompleted: string
 }
 
-export interface SearchParamsProps {
-	searchParams: { [key: string]: string | undefined }
-}
-
 export interface IUser {
 	_id: string
 	clerkId: string
@@ -72,6 +68,10 @@ export interface IUser {
 	youtube: string
 }
 
+export interface SearchParamsProps {
+	searchParams: { [key: string]: string | undefined }
+}
+
 export interface IReview {
 	data: string
 	rating: number
@@ -80,4 +80,25 @@ export interface IReview {
 	_id: string
 	course: ICourse
 	isFlag: boolean
+}
+
+export interface ICard {
+	id: string
+	billing_details: {
+		address: {
+			city: string
+			country: string
+			line1: string
+			line2: string
+			postal_code: string
+			state: string
+		}
+		name: string
+	}
+	card: {
+		brand: string
+		exp_month: number
+		exp_year: number
+		last4: string
+	}
 }

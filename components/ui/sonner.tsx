@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 'use client'
 
 import { useTheme } from 'next-themes'
@@ -13,6 +12,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 	return (
 		<Sonner
 			theme={theme as ToasterProps['theme']}
+			// eslint-disable-next-line tailwindcss/no-custom-classname
 			className='toaster group'
 			toastOptions={{
 				classNames: {

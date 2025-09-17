@@ -18,7 +18,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 interface Props {
 	courses: ICourse[]
 }
-
 function FeaturedCourses({ courses }: Props) {
 	const t = useTranslate()
 	const searchParams = useSearchParams()
@@ -36,7 +35,7 @@ function FeaturedCourses({ courses }: Props) {
 	}
 
 	return (
-		<div className='container mx-auto max-w-6xl py-12 max-xl:px-5'>
+		<div className='container mx-auto max-w-6xl py-12'>
 			<div className='flex items-center justify-between max-md:flex-col max-md:items-start'>
 				<div className='flex flex-col space-y-1'>
 					<h1 className='font-space-grotesk text-3xl font-bold'>
@@ -47,35 +46,33 @@ function FeaturedCourses({ courses }: Props) {
 					</p>
 				</div>
 
-				<div className='flex items-center gap-1 self-end overflow-hidden max-md:mt-4 max-md:w-full max-md:rounded-full max-md:bg-primary max-md:p-2'>
+				<div className='flex items-center gap-1 self-end max-md:mt-4 max-md:w-full max-md:rounded-full max-md:bg-primary max-md:p-2'>
 					{filterCourses.map(item => (
 						<Button
 							key={item.name}
-							rounded='full'
+							rounded={'full'}
 							variant={item.name === 'all' ? 'secondary' : 'ghost'}
-							onClick={() => onUpdateParams(item.name)}
 							className={cn(
 								'font-medium max-md:w-full max-md:bg-secondary',
 								item.name === 'all' && 'text-primary'
 							)}
+							onClick={() => onUpdateParams(item.name)}
 						>
 							{t(item.label)}
 						</Button>
 					))}
 				</div>
 			</div>
-
 			<div className='mt-4 flex flex-col space-y-4 md:hidden'>
 				{courses.map(course => (
 					<CourseCard key={course.title} {...course} />
 				))}
 			</div>
-
 			<Carousel
 				opts={{ align: 'start' }}
 				className='mt-6 hidden w-full md:flex'
 			>
-				<CarouselContent>
+				<CarouselContent className='w-full'>
 					{courses.map(course => (
 						<CarouselItem
 							key={course.title}
@@ -85,7 +82,6 @@ function FeaturedCourses({ courses }: Props) {
 						</CarouselItem>
 					))}
 				</CarouselContent>
-
 				<CarouselPrevious />
 				<CarouselNext />
 			</Carousel>

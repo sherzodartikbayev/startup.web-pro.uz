@@ -27,12 +27,12 @@ import { useEffect, useState } from 'react'
 interface Props {
 	sections: ISection[]
 }
-
 function Sections({ sections }: Props) {
 	const [mount, setMount] = useState(false)
+
 	const searchParams = useSearchParams()
-	const pathname = usePathname()
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const sectionId = searchParams.get('s')
 
@@ -82,18 +82,20 @@ function Sections({ sections }: Props) {
 export default Sections
 
 function SectionList(section: ISection) {
-	const sectionId = useSearchParams().get('s')
+	const { get } = useSearchParams()
+	const sectionId = get('s')
 
 	return (
 		<AccordionItem value={section._id} className='mt-1'>
 			<AccordionTrigger
 				className={cn(
 					'text-left hover:no-underline hover:bg-gray-50 hover:dark:bg-gray-800 px-3 bg-gray-100 dark:bg-black/20',
-					sectionId === section._id && 'bg-secondary dark:bg-secondary-800'
+					sectionId === section._id && 'bg-white dark:bg-gray-800'
 				)}
 			>
 				{section.title}
 			</AccordionTrigger>
+
 			<AccordionContent>
 				{section.lessons.map(lesson => (
 					<LessonList
@@ -111,20 +113,19 @@ interface LessonProps {
 	lesson: ILesson
 	sectionId: string
 }
-
 function LessonList({ lesson, sectionId }: LessonProps) {
 	const [isLoading, setIsLoading] = useState(false)
 	const [mount, setMount] = useState(false)
 
 	const { userId } = useAuth()
-	const { courseId, lessonId } = useParams()
 	const pathname = usePathname()
+	const { courseId, lessonId } = useParams()
 
 	const isCompleted = lesson.userProgress
 		.map(item => item.lessonId)
 		.includes(lesson._id)
 
-	const onCheck = async (checked: CheckedState) => {
+	const onCheck = (checked: CheckedState) => {
 		setIsLoading(true)
 		let promise
 
@@ -145,7 +146,7 @@ function LessonList({ lesson, sectionId }: LessonProps) {
 				'mx-auto mt-2 flex h-12 w-[calc(100%-12px)] items-center justify-between gap-x-2 rounded-none p-0 px-2 text-sm',
 				lessonId === lesson._id && 'bg-secondary'
 			)}
-			variant='ghost'
+			variant={'ghost'}
 		>
 			<Link
 				href={`/dashboard/${courseId}/${lesson._id}?s=${sectionId}`}
@@ -157,7 +158,7 @@ function LessonList({ lesson, sectionId }: LessonProps) {
 					</div>
 					{lesson.title.length > 30
 						? `${lesson.title.slice(0, 30)}...`
-						: `${lesson.title}`}
+						: lesson.title}
 				</div>
 			</Link>
 			<div className='w-[10%]'>

@@ -23,11 +23,10 @@ function Navbar() {
 	const { cartsLength } = useCart()
 
 	return (
-		<header className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
-			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b max-xl:px-5'>
+		<div className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
+			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b'>
 				<div className='flex items-center gap-4'>
 					<Logo />
-
 					<div className='hidden items-center gap-3 border-l pl-2 md:flex'>
 						{navLinks.map(nav => (
 							<Link
@@ -45,17 +44,17 @@ function Navbar() {
 				</div>
 
 				<div className='flex items-center gap-2'>
-					<div className='flex items-center gap-2 pr-3 md:border-r'>
+					<div className='flex items-center gap-2 md:border-r md:pr-3'>
 						<div className='hidden gap-1 md:flex'>
 							<GlobalSearch />
 							<LanguageDropdown />
 							<Button
-								size='icon'
+								size={'icon'}
 								variant={cartsLength() ? 'secondary' : 'ghost'}
 								asChild
 								className='relative'
 							>
-								<Link href='/shopping/cart'>
+								<Link href={'/shopping/cart'}>
 									<ShoppingCart />
 									{cartsLength() ? (
 										<div className='absolute -right-2 -top-2 flex size-6 items-center justify-center rounded-full bg-destructive'>
@@ -68,38 +67,34 @@ function Navbar() {
 						<Mobile />
 						<ModeToggle />
 					</div>
-
 					<SignedIn>
 						<UserBox />
 					</SignedIn>
-
 					<SignedOut>
 						<SignInButton mode='modal'>
 							<Button
-								variant='ghost'
-								size='lg'
-								rounded='full'
+								variant={'ghost'}
+								size={'lg'}
+								rounded={'full'}
 								className='hidden md:flex'
 							>
 								{t('logIn')}
 							</Button>
 						</SignInButton>
-
 						<SignUpButton mode='modal'>
-							<Button size='lg' rounded='full' className='hidden md:flex'>
+							<Button size={'lg'} rounded={'full'} className='hidden md:flex'>
 								{t('signUp')}
 							</Button>
 						</SignUpButton>
-
 						<SignInButton mode='modal'>
-							<Button size='icon' variant='ghost' className='md:hidden'>
+							<Button size={'icon'} variant={'ghost'} className='md:hidden'>
 								<LogIn />
 							</Button>
 						</SignInButton>
 					</SignedOut>
 				</div>
 			</div>
-		</header>
+		</div>
 	)
 }
 

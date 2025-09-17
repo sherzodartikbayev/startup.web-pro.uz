@@ -2,8 +2,8 @@
 
 import Section from '@/database/section.model'
 import { connectToDatabase } from '@/lib/mongoose'
-import { revalidatePath } from 'next/cache'
 import { IUpdateSection } from './types'
+import { revalidatePath } from 'next/cache'
 import Lesson from '@/database/lesson.model'
 
 export const getSections = async (course: string) => {
@@ -53,7 +53,7 @@ export const getSectionById = async (id: string) => {
 	}
 }
 
-export const deleteSectionById = async (id: string, path: string) => {
+export const deleteSection = async (id: string, path: string) => {
 	try {
 		await connectToDatabase()
 		await Section.findByIdAndDelete(id)
@@ -74,7 +74,7 @@ export const updateSectionTitle = async (
 		await Section.findByIdAndUpdate(id, { title })
 		revalidatePath(path)
 	} catch (error) {
-		throw new Error('Somehting went wrong!')
+		throw new Error('Something went wrong!')
 	}
 }
 

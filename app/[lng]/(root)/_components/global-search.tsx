@@ -5,10 +5,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
 import { debounce } from 'lodash'
 
-const GlobalSearch = () => {
-	const searchParams = useSearchParams()
+function GlobalSearch() {
 	const router = useRouter()
 	const pathname = usePathname()
+	const searchParams = useSearchParams()
 
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		const text = e.target.value.toLowerCase()
@@ -21,7 +21,6 @@ const GlobalSearch = () => {
 				value: text,
 				toCourses: !isCoursePage,
 			})
-
 			router.push(newUrl)
 		} else {
 			const newUrl = removeKeysFromQuery({
@@ -33,14 +32,13 @@ const GlobalSearch = () => {
 		}
 	}
 
-	const debounceSearch = debounce(handleSearch, 3000)
+	const debounceSearch = debounce(handleSearch, 300)
 
 	return (
 		<div className='search-box'>
-			<Button size='icon' variant='ghost' className='btn-search'>
+			<Button size={'icon'} variant={'ghost'} className='btn-search'>
 				<Search />
 			</Button>
-
 			<input
 				type='text'
 				className='input-search'

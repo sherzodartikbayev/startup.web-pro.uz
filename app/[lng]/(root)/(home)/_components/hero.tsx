@@ -17,7 +17,7 @@ function Hero() {
 
 	return (
 		<>
-			<div className='container mx-auto grid min-h-[80vh] max-w-6xl grid-cols-2 gap-8 max-xl:px-5 max-md:grid-cols-1 max-md:pt-32'>
+			<div className='container mx-auto grid min-h-[80vh] max-w-6xl grid-cols-2 gap-8 max-md:grid-cols-1 max-md:pt-32'>
 				<div className='flex flex-col space-y-4 self-center'>
 					<h1 className='font-space-grotesk text-5xl font-bold'>
 						{t('heroTitle')}{' '}
@@ -25,13 +25,13 @@ function Hero() {
 					</h1>
 					<p className='text-muted-foreground'>{t('heroDescription')}</p>
 					<div className='flex gap-4'>
-						<Link href='/courses'>
-							<Button variant='outline' size='lg' rounded='full'>
+						<Link href={'/courses'}>
+							<Button variant={'outline'} size={'lg'} rounded={'full'}>
 								{t('findCourses')}
 							</Button>
 						</Link>
-						<Link href='/blogs'>
-							<Button size='lg' rounded='full'>
+						<Link href={'/courses'}>
+							<Button size={'lg'} rounded={'full'}>
 								{t('blogs')}
 							</Button>
 						</Link>
@@ -39,7 +39,7 @@ function Hero() {
 				</div>
 
 				<Image
-					src='/assets/hero.png'
+					src={'/assets/hero.png'}
 					alt='hero'
 					width={520}
 					height={520}
@@ -49,21 +49,14 @@ function Hero() {
 
 			<div className='w-full bg-secondary'>
 				<Carousel
+					opts={{ align: 'start', loop: true }}
 					className='container mx-auto w-full max-w-6xl'
-					opts={{
-						align: 'start',
-						loop: true,
-					}}
-					plugins={[
-						Autoplay({
-							delay: 2000,
-						}),
-					]}
+					plugins={[Autoplay({ delay: 2000 })]}
 				>
 					<CarouselContent>
-						{companies.map((Icon, index) => (
+						{companies.map((Icon, idx) => (
 							<CarouselItem
-								key={index}
+								key={idx}
 								className='basis-1/3 md:basis-1/4 lg:basis-1/6'
 							>
 								<Icon className='h-24 w-full text-muted-foreground' />

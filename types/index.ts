@@ -1,6 +1,4 @@
-import { LucideIcon } from 'lucide-react'
 import { ReactNode } from 'react'
-import { IconType } from 'react-icons/lib'
 
 export interface ChildProps {
 	children: ReactNode
@@ -8,10 +6,6 @@ export interface ChildProps {
 
 export interface LngParams {
 	params: { lng: string }
-}
-
-export interface LanguageDropdownProps {
-	isMobbile?: boolean
 }
 
 export interface ICourse {
@@ -45,12 +39,6 @@ export interface IAuthor {
 	id: string
 }
 
-export interface ILearningJourney {
-	title: string
-	excerpt: string
-	image: string
-}
-
 export interface ICategoryAndTags {
 	name: string
 	slug: string
@@ -67,42 +55,4 @@ export interface IBlog {
 	createdAt: string
 	content: { html: string }
 	slug: string
-}
-
-export interface ITopBar {
-	label: string
-	description?: string
-	extra?: string
-}
-
-export interface IInstructorHeader {
-	title: string
-	description: string
-}
-
-export interface IStatisticsCard {
-	label: string
-	value: string
-	Icon: LucideIcon | IconType
-}
-
-export interface IInstructorMyCourseDetail {
-	params: { courseId: string }
-}
-
-export interface IConfirmDeleteModal {
-	onConfirm: () => void
-	children: ReactNode
-}
-
-export interface UrlQueryParams {
-	params: string
-	key: string
-	value: string | null
-	toCourses?: boolean
-}
-
-export interface RemoveUrlQueryParams {
-	params: string
-	keysToRemove: string[]
 }

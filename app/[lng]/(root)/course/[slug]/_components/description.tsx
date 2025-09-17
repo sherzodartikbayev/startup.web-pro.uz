@@ -13,17 +13,19 @@ import {
 import { GrCertificate } from 'react-icons/gr'
 import { BiCategory } from 'react-icons/bi'
 import { useState } from 'react'
+import { useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/hooks/use-cart'
 import Link from 'next/link'
+
 interface Props {
 	course: ICourse
 	isPurchase: boolean
 }
-
 function Description({ course, isPurchase }: Props) {
 	const [isLoading, setIsLoading] = useState(false)
 
+	const { userId } = useAuth()
 	const t = useTranslate()
 	const router = useRouter()
 	const { addToCart } = useCart()
@@ -116,7 +118,7 @@ function Description({ course, isPurchase }: Props) {
 			<div className='mt-2 flex items-center justify-between border-b pb-2'>
 				<div className='flex items-center gap-2 font-space-grotesk'>
 					<BiCategory className='size-5' />
-					<span className='font-bold'>{t('category')}</span>
+					<span className='font-bold'>{t('Category')}</span>
 				</div>
 				<p className='capitalize text-muted-foreground'>{course.category}</p>
 			</div>

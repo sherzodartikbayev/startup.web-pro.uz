@@ -7,16 +7,15 @@ import { ICourse } from '@/app.types'
 function CourseCard(course: ICourse) {
 	return (
 		<Link href={`/course/${course._id}`}>
-			<Card className='group'>
+			<Card className='group w-full'>
 				<CardContent className='relative h-56 w-full'>
 					<Image
+						fill
 						src={course.previewImage}
 						alt={course.title}
-						fill
 						className='object-cover'
 					/>
 				</CardContent>
-
 				<div className='my-4 flex flex-col space-y-2 px-2'>
 					<h2 className='line-clamp-1 font-space-grotesk text-2xl font-bold'>
 						{course.title}
@@ -45,8 +44,8 @@ function CourseCard(course: ICourse) {
 							</div>
 							<div className='font-space-grotesk text-sm font-bold'>
 								{course.currentPrice.toLocaleString('en-US', {
-									style: 'currency',
 									currency: 'USD',
+									style: 'currency',
 								})}
 							</div>
 						</div>

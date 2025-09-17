@@ -1,6 +1,13 @@
-import { IStatisticsCard } from '@/types'
+import { LucideIcon } from 'lucide-react'
+import { IconType } from 'react-icons/lib'
 
-function StatisticsCard({ label, value, Icon }: IStatisticsCard) {
+interface Props {
+	label: string
+	value: string
+	Icon: LucideIcon | IconType
+}
+
+function StatisticsCard({ Icon, label, value }: Props) {
 	return (
 		<div className='flex items-center justify-between rounded-md bg-background p-4'>
 			<div className='flex flex-col space-y-2'>

@@ -24,12 +24,14 @@ interface Props {
 	}
 }
 
-function AllCourse({ result: { courses, isNext, totalCourses } }: Props) {
+function AllCourses({ result }: Props) {
 	const t = useTranslate()
+	const searchParams = useSearchParams()
 	const router = useRouter()
 
-	const searchParams = useSearchParams()
 	const page = searchParams.get('page')
+
+	const { courses, isNext, totalCourses } = result
 
 	const onUpdateParams = (value: string) => {
 		const newUrl = formUrlQuery({
@@ -42,7 +44,7 @@ function AllCourse({ result: { courses, isNext, totalCourses } }: Props) {
 	}
 
 	return (
-		<div className='container mx-auto mt-12 max-w-6xl max-xl:px-5'>
+		<div className='container mx-auto mt-12 max-w-6xl'>
 			<div className='flex items-center justify-between max-md:flex-col max-md:items-start max-md:space-y-2'>
 				<h2 className='max-md:self-end'>
 					{t('result1')}{' '}
@@ -95,8 +97,8 @@ function AllCourse({ result: { courses, isNext, totalCourses } }: Props) {
 			</div>
 
 			<div className='mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-				{courses.map((courses, index) => (
-					<CourseCard key={index} {...courses} />
+				{courses.map((course, index) => (
+					<CourseCard key={index} {...course} />
 				))}
 			</div>
 
@@ -114,4 +116,4 @@ function AllCourse({ result: { courses, isNext, totalCourses } }: Props) {
 	)
 }
 
-export default AllCourse
+export default AllCourses

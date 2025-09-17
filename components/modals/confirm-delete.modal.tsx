@@ -1,6 +1,6 @@
 'use client'
 
-import { IConfirmDeleteModal } from '@/types'
+import { ReactNode } from 'react'
 import { Button } from '../ui/button'
 import {
 	Dialog,
@@ -12,7 +12,12 @@ import {
 	DialogTrigger,
 } from '../ui/dialog'
 
-function ConfirmDeleteModel({ onConfirm, children }: IConfirmDeleteModal) {
+interface Props {
+	onConfirm: () => void
+	children: ReactNode
+}
+
+function ConfirmDeleteModal({ onConfirm, children }: Props) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>{children}</DialogTrigger>
@@ -24,9 +29,8 @@ function ConfirmDeleteModel({ onConfirm, children }: IConfirmDeleteModal) {
 						account and remove your data from our servers.
 					</DialogDescription>
 				</DialogHeader>
-
 				<DialogFooter>
-					<Button variant='destructive' onClick={onConfirm}>
+					<Button variant={'destructive'} onClick={onConfirm}>
 						Confirm
 					</Button>
 				</DialogFooter>
@@ -35,4 +39,4 @@ function ConfirmDeleteModel({ onConfirm, children }: IConfirmDeleteModal) {
 	)
 }
 
-export default ConfirmDeleteModel
+export default ConfirmDeleteModal

@@ -8,12 +8,9 @@ interface Props {
 	pageNumber: number
 	isNext: boolean
 }
-
-function Pagination({ pageNumber, isNext }: Props) {
+function Pagination({ isNext, pageNumber }: Props) {
 	const router = useRouter()
 	const searchParams = useSearchParams()
-
-	if (!isNext && pageNumber === 1) return null
 
 	const onNavigate = (direction: 'prev' | 'next') => {
 		const nextPageNumber =
@@ -27,6 +24,8 @@ function Pagination({ pageNumber, isNext }: Props) {
 
 		router.push(newUrl)
 	}
+
+	if (!isNext && pageNumber === 1) return null
 
 	return (
 		<div className='flex w-full items-center justify-center gap-2'>

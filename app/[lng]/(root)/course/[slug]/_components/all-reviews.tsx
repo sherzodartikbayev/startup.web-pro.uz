@@ -1,5 +1,3 @@
-'use client'
-
 import { getCourseReviews, getReviewsPercentage } from '@/actions/review.action'
 import { ICourse, IReview } from '@/app.types'
 import ReviewCard from '@/components/cards/review.card'
@@ -21,6 +19,7 @@ function AllReviews(course: ICourse) {
 
 	const onOpenReviews = async () => {
 		if (reviews.length) return setOpen(true)
+
 		setLoading(true)
 		try {
 			const [reviews, percentages] = await Promise.all([
@@ -49,11 +48,13 @@ function AllReviews(course: ICourse) {
 		}
 	}
 
+	console.log(percentages)
+
 	return (
 		<>
 			<Button
-				size='lg'
-				rounded='full'
+				size={'lg'}
+				rounded={'full'}
 				className='mx-auto mt-6 flex justify-center'
 				onClick={onOpenReviews}
 				disabled={loading}
@@ -65,35 +66,31 @@ function AllReviews(course: ICourse) {
 				<DialogContent className='custom-scrollbar max-h-full max-w-full overflow-y-auto md:max-w-4xl'>
 					<div className='mt-2 flex items-center gap-1'>
 						<Star className='fill-[#DD6B20] text-[#DD6B20]' />
-						<div className='font-medium'>
-							{t('reviewCourse')}:{' '}
-							<span className='font-bold'>{course.rating}</span>
+						<div className='text-xl font-medium'>
+							{t('reviewCourse')}: {course.rating.toString().slice(0, 3)}
 						</div>
 						<Dot />
-						<div className='font-medium'>
-							<span className='font-bold'>{course.reviewCount}</span>{' '}
-							{t('review')}
+						<div className='text-xl font-medium'>
+							{course.reviewCount} {t('review')}
 						</div>
 					</div>
 
 					<div className='flex flex-col gap-5 md:flex-row'>
-						{percentages && (
-							<div className='w-full md:w-[30%]'>
-								{percentages &&
-									[5, 4, 3, 2, 1].map(idx => (
-										<div key={idx} className='flex items-center gap-2'>
-											<div className='relative h-3 w-3/5 bg-gray-100 dark:bg-gray-900 md:w-2/5'>
-												<div
-													className='absolute inset-0 bg-gray-900 dark:bg-gray-100'
-													style={{ width: `${percentages[idx]}%` }}
-												/>
-											</div>
-											<ReactStars edit={false} value={idx} />
-											<div className=''>{percentages[idx]}%</div>
+						<div className='w-full md:w-[30%]'>
+							{percentages &&
+								[5, 4, 3, 2, 1].map(idx => (
+									<div key={idx} className='flex items-center gap-2'>
+										<div className='relative h-3 w-[60%] bg-gray-100 dark:bg-gray-900 md:w-[40%]'>
+											<div
+												className='absolute inset-0 bg-gray-900 dark:bg-gray-100'
+												style={{ width: `${percentages[idx]}%` }}
+											/>
 										</div>
-									))}
-							</div>
-						)}
+										<ReactStars edit={false} value={idx} />
+										<div>{percentages[idx]}%</div>
+									</div>
+								))}
+						</div>
 						<div className='w-full md:w-[70%]'>
 							{reviews.map(review => (
 								<ReviewCard key={review._id} review={review} />
@@ -101,8 +98,8 @@ function AllReviews(course: ICourse) {
 
 							{course.reviewCount > count && (
 								<Button
-									size='lg'
-									rounded='full'
+									size={'lg'}
+									rounded={'full'}
 									className='mx-auto mt-6 flex justify-center'
 									onClick={onLoadMore}
 									disabled={loading}

@@ -1,5 +1,4 @@
 import {
-	Bell,
 	Contact,
 	CreditCard,
 	FileCode,
@@ -10,14 +9,7 @@ import {
 	MonitorPlay,
 	Rss,
 	Settings2,
-	User,
-	Facebook,
-	Link2,
-	Linkedin,
-	Send,
-	Twitter,
 } from 'lucide-react'
-
 import {
 	DiCisco,
 	DiCreativecommonsBadge,
@@ -64,8 +56,6 @@ export const companies = [
 	DiDocker,
 ]
 
-export const shareBtns = [Facebook, Link2, Linkedin, Send, Twitter]
-
 export const filterCourses = [
 	{ label: 'cateogry1', name: 'all' },
 	{ label: 'cateogry2', name: 'newest' },
@@ -87,7 +77,7 @@ export const courses = [
 			'https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F35ca3db9-fb43-4f12-bd48-8b08a503db09-kilwwj.png&w=1920&q=75',
 		author: {
 			image:
-				'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr',
+				'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
 			name: 'Chris Impley',
 		},
 		oldPrice: 179,
@@ -100,7 +90,7 @@ export const courses = [
 			'https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2Fa8573b7c-95b2-4459-8414-8eacde874b0a-kilwdl.png&w=1920&q=75',
 		author: {
 			image:
-				'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr',
+				'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
 			name: 'Chris Impley',
 		},
 		oldPrice: 159,
@@ -113,7 +103,7 @@ export const courses = [
 			'https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2Fbddfc919-2260-46dd-a078-b956bd9a377c-kilwcq.png&w=1920&q=75',
 		author: {
 			image:
-				'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr',
+				'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
 			name: 'Chris Impley',
 		},
 		oldPrice: 129,
@@ -126,7 +116,7 @@ export const courses = [
 			'https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F1662922d-b61d-401b-aa1a-693a6231d8a0-kilw9a.png&w=1920&q=75',
 		author: {
 			image:
-				'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr',
+				'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
 			name: 'Chris Impley',
 		},
 		oldPrice: 209,
@@ -139,7 +129,7 @@ export const courses = [
 			'https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F27f17594-ae28-4fe1-86ce-964a5c89c78d-kilw7k.png&w=1920&q=75',
 		author: {
 			image:
-				'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr',
+				'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
 			name: 'Chris Impley',
 		},
 		oldPrice: 129,
@@ -152,7 +142,7 @@ export const courses = [
 			'https://sammi.ac/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2Fbcdfb541-3300-430f-b8b2-ff0fb57df056-kilw6p.png&w=1920&q=75',
 		author: {
 			image:
-				'https://us-west-2.graphassets.com/cm8t52inj0h8j07lqglqtbl6n/cm8u4we25absk08lskm98b6xr',
+				'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
 			name: 'Chris Impley',
 		},
 		oldPrice: 209,
@@ -228,6 +218,34 @@ export const learningJourney = [
 	},
 ]
 
+export const instructorNavLinks = [
+	{
+		label: 'Dashboard',
+		route: '/instructor',
+		icon: GaugeCircle,
+	},
+	{
+		label: 'My Courses',
+		route: '/instructor/my-courses',
+		icon: MonitorPlay,
+	},
+	{
+		label: 'Create Course',
+		route: '/instructor/create-course',
+		icon: FileCode,
+	},
+	{
+		label: 'Reviews',
+		route: '/instructor/reviews',
+		icon: MessageSquareMore,
+	},
+	{
+		label: 'Settings',
+		route: '/instructor/settings',
+		icon: Settings2,
+	},
+]
+
 export const courseLevels = ['beginner', 'intermediate', 'advanced']
 export const courseCategory = [
 	'front-end',
@@ -265,46 +283,11 @@ export const editorConfig = {
 	content_css: 'dark',
 }
 
-export const instructorNavLinks = [
-	{ label: 'Dashboard', route: '/instructor', icon: GaugeCircle },
-	{ label: 'My Courses', route: '/instructor/my-courses', icon: MonitorPlay },
-	{
-		label: 'Create Course',
-		route: '/instructor/create-course',
-		icon: FileCode,
-	},
-	{ label: 'Reviews', route: '/instructor/reviews', icon: MessageSquareMore },
-	{ label: 'Settings', route: '/instructor/settings', icon: Settings2 },
-]
-
 export const profileNavLinks = [
 	{ label: 'dashboard', route: '/profile', icon: GaugeCircle },
 	{ label: 'myCourses', route: '/profile/my-courses', icon: MonitorPlay },
 	{ label: 'wishlist', route: '/profile/wishlist', icon: ListVideo },
 	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
 	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
-	{ label: 'notification', route: '/profile/notifications', icon: Bell },
 	{ label: 'settings', route: '/profile/settings', icon: Settings2 },
-]
-
-export const adminNavLinks = [
-	{ label: 'Dashboard', route: '/admin', icon: GaugeCircle },
-	{ label: 'All courses', route: '/admin/all-courses', icon: MonitorPlay },
-	{ label: 'Instructors', route: '/admin/instructors', icon: User },
-	{ label: 'Reviews', route: '/admin/reviews', icon: MessageSquareMore },
-	{ label: 'Notifications', route: '/admin/notifications', icon: Bell },
-]
-
-export const amountOptions = [
-	{ value: '1', label: 'photo' },
-	{ value: '2', label: 'photos' },
-	{ value: '3', label: 'photos' },
-	{ value: '4', label: 'photos' },
-	{ value: '5', label: 'photos' },
-]
-
-export const resolutionOptions = [
-	{ value: '256x256', label: '256x256' },
-	{ value: '512x512', label: '512x512' },
-	{ value: '1024x1024', label: '1024x1024' },
 ]

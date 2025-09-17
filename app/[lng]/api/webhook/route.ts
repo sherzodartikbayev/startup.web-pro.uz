@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 	const svixSignature = headerPayload.get('svix-signature')
 
 	if (!svixId || !svixTimestamp || !svixSignature) {
-		return new Response('Error occured - no svix headers', {
+		return new Response('Error occured -- no svix headers', {
 			status: 400,
 		})
 	}
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 			'svix-signature': svixSignature,
 		}) as WebhookEvent
 	} catch (err) {
-		console.log('Error verifying webhook:', err)
+		console.error('Error verifying webhook:', err)
 		return new Response('Error occured', {
 			status: 400,
 		})

@@ -41,7 +41,9 @@ function ContactForm() {
 				},
 				body: JSON.stringify({
 					chat_id: telegramChatId,
-					text: `Name: ${values.name} \nEmail${values.email} \nMessage: ${values.message}`,
+					text: `Name: ${values.name}:
+Email: ${values.email}:
+Message: ${values.message}`,
 				}),
 			}
 		)

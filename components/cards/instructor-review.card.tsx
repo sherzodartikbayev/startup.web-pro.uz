@@ -7,26 +7,26 @@ import ReactStars from 'react-stars'
 import { IReview } from '@/app.types'
 import { formatDistanceToNow } from 'date-fns'
 import { cn } from '@/lib/utils'
-import { setFlag } from '@/actions/review.action'
-import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { setFlag } from '@/actions/review.action'
 import { toast } from 'sonner'
 import FillLoading from '../shared/fill-loading'
 
 function InstructorReviewCard({ review }: { review: IReview }) {
 	const [isLoading, setIsLoading] = useState(false)
-
 	const pathname = usePathname()
 
 	const handleFlag = async () => {
 		setIsLoading(true)
-		const promise = setFlag(review._id, !review.isFlag, pathname)
-		setIsLoading(false)
+		const promise = setFlag(review._id, !review.isFlag, pathname).finally(() =>
+			setIsLoading(false)
+		)
 
 		toast.promise(promise, {
 			loading: 'Loading...',
-			success: 'Review flagged successfully!',
-			error: 'Error flagging review!',
+			success: 'Review flagged successfully',
+			error: 'Error flagging review',
 		})
 	}
 
@@ -57,7 +57,6 @@ function InstructorReviewCard({ review }: { review: IReview }) {
 					</div>
 				</div>
 			</div>
-
 			<Button
 				size={'icon'}
 				variant={'ghost'}

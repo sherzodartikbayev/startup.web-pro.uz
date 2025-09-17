@@ -24,7 +24,7 @@ function Hero(course: ICourse) {
 						height={50}
 						alt={course.instructor.fullName}
 						src={course.instructor.picture}
-						className='rounded-full object-cover'
+						className='rounded-full'
 					/>
 					<p className='font-space-grotesk font-bold'>
 						{course.instructor.fullName}
@@ -33,12 +33,7 @@ function Hero(course: ICourse) {
 
 				<div className='flex items-center gap-2 font-space-grotesk'>
 					<p className='font-bold text-[#E59819]'>{course.rating}</p>
-					<ReactStars
-						value={course.rating}
-						edit={false}
-						color2='#E59819'
-						size={20}
-					/>
+					<ReactStars value={course.rating} edit={false} color2='#E59819' />
 					<p className='font-bold'>({course.reviewCount})</p>
 				</div>
 
@@ -59,7 +54,7 @@ function Hero(course: ICourse) {
 
 			<Image
 				src={course.previewImage}
-				alt={course.title}
+				alt='course'
 				width={1920}
 				height={1080}
 				className='mt-4 rounded-md object-cover'

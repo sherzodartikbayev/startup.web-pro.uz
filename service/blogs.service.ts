@@ -59,6 +59,7 @@ export const getDetailedBlog = cache(async (slug: string) => {
 				image {
 					url
 				}
+				slug
 				tag {
 					name
 					slug
@@ -68,7 +69,6 @@ export const getDetailedBlog = cache(async (slug: string) => {
 					slug
 				}
 				title
-				slug
 			}
 		}
 	`

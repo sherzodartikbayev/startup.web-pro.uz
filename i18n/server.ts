@@ -18,6 +18,7 @@ const initI18next = async (lng: string) => {
 
 export async function translation(lng: string) {
 	const i18nextInstance = await initI18next(lng)
+
 	return {
 		t: i18nextInstance.getFixedT(lng),
 		i18n: i18nextInstance,

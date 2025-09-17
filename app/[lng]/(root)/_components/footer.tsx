@@ -11,7 +11,7 @@ function Footer() {
 	const t = useTranslate()
 
 	return (
-		<div className='mt-12 bg-secondary pt-12 max-xl:px-5'>
+		<div className='mt-12 bg-secondary pt-12 max-md:px-4'>
 			<div className='container mx-auto max-w-7xl pb-12'>
 				<div className='grid grid-cols-1 gap-12 md:grid-cols-4'>
 					<div className='flex flex-col space-y-3 md:col-span-2'>
@@ -42,9 +42,9 @@ function Footer() {
 								<div className='flex flex-col space-y-1'>
 									<a
 										className='text-sm hover:text-blue-500 hover:underline dark:hover:text-blue-300'
-										href='tel:+998334360520'
+										href='tel:+998900000000'
 									>
-										+998 (90) 436-05-20
+										+998 (90) 000-00-00
 									</a>
 									<Separator className='dark:bg-gray-500' />
 									<a
@@ -60,9 +60,9 @@ function Footer() {
 								<Mail size={20} />
 								<a
 									className='text-sm hover:text-blue-500 hover:underline dark:hover:text-blue-300'
-									href='mailto:info@web-pro.uz'
+									href='mailto:info@sammi.ac'
 								>
-									info@web-pro.uz
+									info@sammi.ac
 								</a>
 							</div>
 

@@ -1,19 +1,24 @@
 'use client'
 
 import { Card, CardContent } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { useCart } from '@/hooks/use-cart'
 import useTranslate from '@/hooks/use-translate'
-import CartItem from './cart-item'
-import { Separator } from '@/components/ui/separator'
+import Image from 'next/image'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import Checkout from './checkout'
+import { ICard } from '@/app.types'
 
 const stripePromise = loadStripe(
 	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 )
 
-function CheckoutElement() {
+interface Props {
+	cards: ICard[]
+}
+
+function CheckoutElement({ cards }: Props) {
 	const t = useTranslate()
 	const { totalPrice, taxes, carts } = useCart()
 
@@ -28,7 +33,7 @@ function CheckoutElement() {
 						<p className='text-sm text-muted-foreground'>{t('fillDetails')}</p>
 
 						<Elements stripe={stripePromise}>
-							<Checkout />
+							<Checkout cards={cards} />
 						</Elements>
 					</CardContent>
 				</Card>
@@ -45,7 +50,33 @@ function CheckoutElement() {
 
 							<div className='mt-4 flex flex-col space-y-3'>
 								{carts.map(item => (
-									<CartItem key={item._id} {...item} />
+									<div
+										key={item._id}
+										className='flex items-center justify-between border-b pb-2'
+									>
+										<div className='flex items-center gap-2'>
+											<div className='relative size-12 rounded-md bg-gray-300'>
+												<Image
+													src={item.previewImage}
+													alt={item.title}
+													fill
+													className='object-cover'
+												/>
+											</div>
+											<h1 className='font-space-grotesk font-bold'>
+												{item.title}
+											</h1>
+										</div>
+
+										<div className='flex items-center gap-2'>
+											<h1 className='font-space-grotesk text-sm font-bold'>
+												{item.currentPrice.toLocaleString('en-US', {
+													style: 'currency',
+													currency: 'USD',
+												})}
+											</h1>
+										</div>
+									</div>
 								))}
 							</div>
 						</CardContent>
@@ -87,7 +118,7 @@ function CheckoutElement() {
 							<div className='flex items-center justify-between text-sm'>
 								<div className='font-space-grotesk font-bold'>{t('total')}</div>
 								<div className='font-medium'>
-									{(taxes() + totalPrice()).toLocaleString('en-US', {
+									{(totalPrice() + taxes()).toLocaleString('en-US', {
 										style: 'currency',
 										currency: 'USD',
 									})}

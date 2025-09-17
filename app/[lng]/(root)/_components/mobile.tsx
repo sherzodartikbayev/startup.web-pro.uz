@@ -23,17 +23,16 @@ function Mobile() {
 	return (
 		<Sheet>
 			<SheetTrigger asChild className='md:hidden'>
-				<Button size='icon' variant='ghost'>
+				<Button size={'icon'} variant={'ghost'}>
 					<AlignCenter />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side='top'>
+			<SheetContent side={'top'}>
 				<SheetHeader>
 					<Logo />
 					<Separator />
 				</SheetHeader>
-
-				<div className='my-4 flex flex-col space-y-3'>
+				<div className='mt-4 flex flex-col space-y-3'>
 					{navLinks.map(nav => (
 						<Link
 							href={`/${nav.route}`}
@@ -44,18 +43,14 @@ function Mobile() {
 							<span>{t(nav.name)}</span>
 						</Link>
 					))}
-				</div>
-
-				<LanguageDropdown isMobbile />
-
-				<div className='mt-4 flex items-center justify-center gap-4'>
-					<Button size='icon' variant='ghost'>
-						<ShoppingCart />
-					</Button>
-
-					<GlobalSearch />
-
-					<ModeToggle />
+					<LanguageDropdown isMobile />
+					<div className='flex items-center justify-center gap-4'>
+						<Button size={'icon'} variant={'ghost'}>
+							<ShoppingCart />
+						</Button>
+						<GlobalSearch />
+						<ModeToggle />
+					</div>
 				</div>
 			</SheetContent>
 		</Sheet>

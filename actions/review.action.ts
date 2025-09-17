@@ -18,7 +18,7 @@ export const createReview = async (
 		const user = await User.findOne({ clerkId })
 		await Review.create({ user: user._id, course, ...data })
 	} catch (error) {
-		throw new Error('Something went wrong!')
+		throw new Error('Error creating review')
 	}
 }
 
@@ -46,6 +46,7 @@ export const getReviews = async (params: GetReviewParams) => {
 	try {
 		await connectToDatabase()
 		const { page = 1, pageSize = 3, clerkId } = params
+
 		const skipAmount = (page - 1) * pageSize
 
 		const user = await User.findOne({ clerkId })
@@ -64,9 +65,9 @@ export const getReviews = async (params: GetReviewParams) => {
 
 		const isNext = totalReviews > skipAmount + reviews.length
 
-		return { reviews, totalReviews, isNext }
+		return { reviews, isNext, totalReviews }
 	} catch (error) {
-		throw new Error('Something went wrong while getting reviews!')
+		throw new Error('Error getting reviews')
 	}
 }
 
@@ -80,7 +81,7 @@ export const setFlag = async (
 		await Review.findByIdAndUpdate(reviewId, { isFlag })
 		revalidatePath(path)
 	} catch (error) {
-		throw new Error('Something went wrong!')
+		throw new Error('Error setting flag')
 	}
 }
 
@@ -91,9 +92,10 @@ export const getCourseReviews = async (course: string, limit: number) => {
 			.sort({ createdAt: -1 })
 			.populate({ path: 'user', model: User, select: 'fullName picture' })
 			.limit(limit)
+
 		return JSON.parse(JSON.stringify(reviews))
 	} catch (error) {
-		throw new Error('Error getting course reviews!')
+		throw new Error('Error getting course reviews')
 	}
 }
 
@@ -126,6 +128,6 @@ export const getReviewsPercentage = async (id: string) => {
 
 		return percentages
 	} catch (error) {
-		throw new Error('Something went wrong!')
+		throw new Error('Error getting reviews percentage')
 	}
 }

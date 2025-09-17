@@ -38,11 +38,13 @@ function VideoLesson({ lesson }: Props) {
 
 			player.on('ended', onEnd)
 		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lesson, pathname])
 
 	const onEnd = async () => {
 		setIsLoading(true)
+
 		const nextLesson = getNextLesson(lesson._id, `${courseId}`).then(res =>
 			router.push(`/dashboard/${courseId}/${res?.lessonId}?s=${res?.sectionId}`)
 		)

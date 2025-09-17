@@ -1,22 +1,22 @@
 import TopBar from '@/components/shared/top-bar'
-import AllCourse from './_components/all-course'
-import { getAllCourse } from '@/actions/course.action'
+import AllCourses from './_components/all-courses'
+import { getAllCourses } from '@/actions/course.action'
 import { SearchParamsProps } from '@/app.types'
 
 async function Page({ searchParams }: SearchParamsProps) {
-	const resultJSON = await getAllCourse({
-		filter: searchParams.filter,
+	const resultJSON = await getAllCourses({
 		searchQuery: searchParams.q,
+		filter: searchParams.filter,
 		page: searchParams.page ? +searchParams.page : 1,
 	})
 
 	const result = JSON.parse(JSON.stringify(resultJSON))
 
 	return (
-		<div>
+		<>
 			<TopBar label='allCourses' description='allCourseDescription' />
-			<AllCourse result={result} />
-		</div>
+			<AllCourses result={result} />
+		</>
 	)
 }
 

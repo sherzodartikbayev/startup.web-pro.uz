@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import useToggleEdit from '@/hooks/use-toggle-edit'
-import { coursePriceSchema } from '@/lib/validation'
+import { priceSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Edit2, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
@@ -85,15 +85,15 @@ function Forms({ course, onToggle }: FormsProps) {
 
 	const pathname = usePathname()
 
-	const form = useForm<z.infer<typeof coursePriceSchema>>({
-		resolver: zodResolver(coursePriceSchema),
+	const form = useForm<z.infer<typeof priceSchema>>({
+		resolver: zodResolver(priceSchema),
 		defaultValues: {
 			oldPrice: `${course.oldPrice}`,
 			currentPrice: `${course.currentPrice}`,
 		},
 	})
 
-	const onSubmit = (values: z.infer<typeof coursePriceSchema>) => {
+	const onSubmit = (values: z.infer<typeof priceSchema>) => {
 		setIsLoading(true)
 		const { currentPrice, oldPrice } = values
 		const promise = updateCourse(

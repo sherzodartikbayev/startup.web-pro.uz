@@ -45,6 +45,7 @@ function Overview(course: ICourse) {
 		}
 
 		getData()
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -57,7 +58,7 @@ function Overview(course: ICourse) {
 
 				<div className='mt-5 grid grid-cols-1 gap-4 md:grid-cols-2'>
 					{course.learning.split(', ').map(item => (
-						<div className='flex gap-2' key={item}>
+						<div className={'flex gap-2'} key={item}>
 							<BadgeCheck className='size-5 text-blue-500' />
 							<p className='flex-1'>{item}</p>
 						</div>
@@ -72,7 +73,7 @@ function Overview(course: ICourse) {
 
 				<div className='mt-2 flex flex-row flex-wrap gap-8'>
 					<div className='flex flex-col'>
-						<ListOrdered className='size-10' />
+						<ListOrdered className='size-10 ' />
 						<p className='font-space-grotesk text-xl font-bold'>
 							{t('numberOfModules')}
 						</p>
@@ -80,15 +81,15 @@ function Overview(course: ICourse) {
 					</div>
 
 					<div className='flex flex-col'>
-						<MonitorPlay className='size-10' />
+						<MonitorPlay className='size-10 ' />
 						<p className='font-space-grotesk text-xl font-bold'>
 							{t('numberOfLessons')}
 						</p>
 						<div className='text-2xl font-medium'>{course.totalLessons}</div>
 					</div>
 
-					<div className='flex flex-col'>
-						<CalendarRange className='size-10' />
+					<div className='flex flex-col '>
+						<CalendarRange className='size-10 ' />
 						<p className='font-space-grotesk text-xl font-bold'>
 							{t('courseDuration')}
 						</p>
@@ -121,10 +122,10 @@ function Overview(course: ICourse) {
 				</h2>
 
 				<div className='mt-2'>
-					{course.requirements.split(', ').map(item => (
-						<div className='mt-1 flex items-center' key={item}>
+					{course.requirements.split(', ').map(i => (
+						<div className='mt-1 flex items-center' key={i}>
 							<Dot />
-							<p className='flex-1 text-slate-400'>{item}</p>
+							<p className='flex-1 text-slate-400'>{i}</p>
 						</div>
 					))}
 				</div>
@@ -142,10 +143,11 @@ function Overview(course: ICourse) {
 						</div>
 						<Dot />
 						<div className='font-medium'>
-							<span className='font-bold'>{course.reviewCount}</span>{' '}
+							<span className='font-bold'>{course.reviewCount}</span>
 							{t('review')}
 						</div>
 					</div>
+
 					<div className='mt-5 grid grid-cols-1 gap-2 lg:grid-cols-2'>
 						{reviews.map(review => (
 							<ReviewCard key={review._id} review={review} />

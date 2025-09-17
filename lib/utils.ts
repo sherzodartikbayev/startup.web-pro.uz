@@ -1,9 +1,8 @@
-import { clsx, type ClassValue } from 'clsx'
+import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { enUS, ruRU, trTR } from '@clerk/localizations'
 import { uzUZ } from './uz-UZ'
 import qs from 'query-string'
-import { RemoveUrlQueryParams, UrlQueryParams } from '@/types'
 import { ILesson } from '@/app.types'
 import { enUS as en, uz, tr, ru } from 'date-fns/locale'
 
@@ -18,11 +17,11 @@ export function localization(lng: string) {
 	if (lng === 'uz') return uzUZ
 }
 
-export function getCurrentLanguage(lng: string) {
+export function getCurrentLng(lng: string) {
 	if (lng === 'en') return 'English'
 	if (lng === 'ru') return 'Русский'
 	if (lng === 'tr') return 'Türkçe'
-	if (lng === 'uz') return "O'zbekcha"
+	if (lng === 'uz') return 'O‘zbek'
 }
 
 export function getReadingTime(content: string) {
@@ -59,12 +58,18 @@ export function getReadingTime(content: string) {
 	}
 }
 
-export function formUrlQuery({
+interface UrlQueryParams {
+	params: string
+	key: string
+	value: string | null
+	toCourses?: boolean
+}
+export const formUrlQuery = ({
 	key,
 	params,
 	value,
 	toCourses = false,
-}: UrlQueryParams) {
+}: UrlQueryParams) => {
 	const currentUrl = qs.parse(params)
 
 	currentUrl[key] = value
@@ -80,6 +85,10 @@ export function formUrlQuery({
 	)
 }
 
+interface RemoveUrlQueryParams {
+	params: string
+	keysToRemove: string[]
+}
 export const removeKeysFromQuery = ({
 	params,
 	keysToRemove,
@@ -123,7 +132,7 @@ export const formatLessonTime = (lesson: ILesson) => {
 	const duration = lesson.duration
 
 	const totalSeconds =
-		duration.hours * 36000 + duration.minutes * 60 + duration.seconds
+		duration.hours * 3600 + duration.minutes * 60 + duration.seconds
 
 	const hours = Math.floor(totalSeconds / 3600)
 	const minutes = Math.floor((totalSeconds % 3600) / 60)
@@ -138,11 +147,11 @@ export const formatLessonTime = (lesson: ILesson) => {
 
 export const formatAndDivideNumber = (num: number) => {
 	if (num >= 1000000) {
-		const formattedNumber = (num / 1000000).toFixed(1)
-		return `${formattedNumber}M`
+		const formattedNum = (num / 1000000).toFixed(1)
+		return `${formattedNum}M`
 	} else if (num >= 1000) {
-		const formattedNumber = (num / 1000).toFixed(1)
-		return `${formattedNumber}K`
+		const formattedNum = (num / 1000).toFixed(1)
+		return `${formattedNum}K`
 	} else {
 		return num.toString()
 	}
@@ -151,8 +160,8 @@ export const formatAndDivideNumber = (num: number) => {
 export const getTimeLocale = (lng: string) => {
 	if (lng === 'en') return en
 	if (lng === 'ru') return ru
-	if (lng === 'uz') return uz
 	if (lng === 'tr') return tr
+	if (lng === 'uz') return uz
 }
 
 export const generateNumericId = (): string => {

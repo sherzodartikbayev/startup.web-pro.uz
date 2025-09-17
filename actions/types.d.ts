@@ -19,7 +19,6 @@ export interface ICreateUser {
 	email: string
 	picture: string
 }
-
 export interface IUpdateUser {
 	clerkId: string
 	path?: string
@@ -52,7 +51,7 @@ export interface IUpdatePosition {
 	path: string
 }
 
-export interface GetCourseParams {
+export interface GetCoursesParams {
 	clerkId: string
 	page?: number
 	pageSize?: number

@@ -1,8 +1,8 @@
-import { ChildProps } from '@/types'
 import type { Metadata } from 'next'
-import './globals.css'
 import { Roboto, Space_Grotesk as SpaceGrotesk } from 'next/font/google'
-import { ThemeProvider } from '@/components/providers/theme-provider'
+import './globals.css'
+import { ChildProps } from '@/types'
+import { ThemeProvider } from '@/components/providers/theme.provider'
 import { languages } from '@/i18n/settings'
 import { dir } from 'i18next'
 import { ClerkProvider } from '@clerk/nextjs'
@@ -16,8 +16,8 @@ const roboto = Roboto({
 })
 
 const spaceGrotesk = SpaceGrotesk({
-	subsets: ['latin'],
 	weight: ['300', '400', '500', '600', '700'],
+	subsets: ['latin'],
 	variable: '--font-space-grotesk',
 })
 
@@ -28,13 +28,14 @@ export async function generateStaticParams() {
 export const metadata: Metadata = {
 	title: 'Startup Praktikum - Next.js',
 	description: "Startup Praktikum's Next.js project",
+	icons: { icon: '/logo.svg' },
 }
 
 interface Props extends ChildProps {
 	params: { lng: string }
 }
 
-export default function RootLayout({ children, params: { lng } }: Props) {
+function RootLayout({ children, params: { lng } }: Props) {
 	const local = localization(lng)
 
 	return (
@@ -42,6 +43,7 @@ export default function RootLayout({ children, params: { lng } }: Props) {
 			<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
 				<body
 					className={`${roboto.variable} ${spaceGrotesk.variable} custom-scrollbar overflow-x-hidden`}
+					suppressHydrationWarning
 				>
 					<ThemeProvider
 						attribute='class'
@@ -49,11 +51,13 @@ export default function RootLayout({ children, params: { lng } }: Props) {
 						enableSystem
 						disableTransitionOnChange
 					>
-						{children}
 						<Toaster position='top-center' />
+						<div>{children}</div>
 					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>
 	)
 }
+
+export default RootLayout

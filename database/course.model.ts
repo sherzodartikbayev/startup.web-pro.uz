@@ -1,4 +1,4 @@
-import { model, models, Schema } from 'mongoose'
+import { Schema, model, models } from 'mongoose'
 
 const CourseSchema = new Schema(
 	{
@@ -22,5 +22,4 @@ const CourseSchema = new Schema(
 )
 
 const Course = models.Course || model('Course', CourseSchema)
-
 export default Course

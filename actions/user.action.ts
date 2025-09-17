@@ -24,7 +24,7 @@ export const createUser = async (data: ICreateUser) => {
 		const newUser = User.create(data)
 
 		return newUser
-	} catch (err) {
+	} catch (error) {
 		throw new Error('Error creating user. Please try again.')
 	}
 }
@@ -33,9 +33,9 @@ export const updateUser = async (data: IUpdateUser) => {
 	try {
 		await connectToDatabase()
 		const { clerkId, updatedData, path } = data
-		const updatedUser = await User.findOneAndUpdate({ clerkId }, updatedData)
+		const updateduser = await User.findOneAndUpdate({ clerkId }, updatedData)
 		if (path) return revalidatePath(path)
-		return updatedUser
+		return updateduser
 	} catch (error) {
 		throw new Error('Error updating user. Please try again.')
 	}

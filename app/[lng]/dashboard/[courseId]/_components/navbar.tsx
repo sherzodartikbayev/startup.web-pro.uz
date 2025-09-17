@@ -29,13 +29,13 @@ function Navbar() {
 					role='button'
 					onClick={onOpen}
 				>
-					<Star />
+					<Star size={20} />
 					<p>{t('evaluation')}</p>
 				</div>
 				<ModeToggle />
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button size='icon' variant='ghost'>
+						<Button size={'icon'} variant={'ghost'}>
 							<MoreVertical />
 						</Button>
 					</DropdownMenuTrigger>

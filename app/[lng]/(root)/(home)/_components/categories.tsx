@@ -8,8 +8,8 @@ function Categories() {
 	const t = useTranslate()
 
 	return (
-		<div className='container mx-auto max-w-6xl py-12 max-xl:px-5'>
-			<div className='flex flex-col  space-y-1'>
+		<div className='container mx-auto max-w-6xl py-12'>
+			<div className='flex flex-col space-y-1'>
 				<h1 className='font-space-grotesk text-3xl font-bold'>
 					{t('topCategories')}
 				</h1>

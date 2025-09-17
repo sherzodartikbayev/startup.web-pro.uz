@@ -16,10 +16,10 @@ function ReviewLoading() {
 							<Skeleton className='size-12 rounded-full' />
 
 							<div className='flex flex-col'>
-								<Skeleton className='size-full h-3' />
+								<Skeleton className='h-3 w-full' />
 								<div className='mt-2 flex items-center gap-1'>
 									<Skeleton className='h-4 w-24' />
-									<Skeleton className='h-4 w-24' />
+									<Skeleton className='h-4 w-16' />
 								</div>
 							</div>
 						</div>
