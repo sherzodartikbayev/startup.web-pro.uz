@@ -1,5 +1,4 @@
 import { getCourseById } from '@/actions/course.action'
-import { IInstructorMyCourseDetail } from '@/types'
 import Header from '../../../../../components/shared/header'
 import Actions from './_components/actions'
 import { Separator } from '@/components/ui/separator'
@@ -13,7 +12,11 @@ import Price from './_components/price'
 import PreviewImage from './_components/preview-image'
 import { getSections } from '@/actions/section.action'
 
-async function Page({ params: { courseId } }: IInstructorMyCourseDetail) {
+interface Props {
+	params: { courseId: string }
+}
+
+async function Page({ params: { courseId } }: Props) {
 	const courseJSON = await getCourseById(courseId)
 	const sectionsJSON = await getSections(courseId)
 

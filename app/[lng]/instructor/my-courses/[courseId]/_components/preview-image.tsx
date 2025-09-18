@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import useToggleEdit from '@/hooks/use-toggle-edit'
-import { storage, bucketId, ID } from '@/lib/appwrite' // 👈 sizda shu bo‘lishi kerak
+import { storage, bucketId, ID } from '@/lib/appwrite'
 import { Edit2, X } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'

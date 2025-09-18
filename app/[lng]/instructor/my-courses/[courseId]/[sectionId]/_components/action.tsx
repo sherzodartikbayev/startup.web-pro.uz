@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteSectionById } from '@/actions/section.action'
+import { deleteSection } from '@/actions/section.action'
 import { ISection } from '@/app.types'
 import ConfirmDeleteModel from '@/components/modals/confirm-delete.modal'
 import { Button } from '@/components/ui/button'
@@ -12,7 +12,7 @@ function Action(section: ISection) {
 
 	const onDelete = () => {
 		const path = `/en/instructor/my-courses/${section.course}`
-		const promise = deleteSectionById(section._id, path).then(() =>
+		const promise = deleteSection(section._id, path).then(() =>
 			router.push(path)
 		)
 
