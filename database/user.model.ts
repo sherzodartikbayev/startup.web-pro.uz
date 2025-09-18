@@ -17,6 +17,7 @@ const UserSchema = new Schema(
 		customerId: String,
 		favouriteCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
 		archiveCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
+		wishlistCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
 	},
 	{ timestamps: true }
 )

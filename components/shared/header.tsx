@@ -1,6 +1,9 @@
-import { IInstructorHeader } from '@/types'
+interface Props {
+	title: string
+	description: string
+}
 
-function Header({ title, description }: IInstructorHeader) {
+function Header({ description, title }: Props) {
 	return (
 		<div className='pt-4'>
 			<h1 className='font-space-grotesk text-4xl font-bold'>{title}</h1>

@@ -1,4 +1,4 @@
-import Header from '../_components/header'
+import Header from '../../../../components/shared/header'
 import InstructorCourseCard from '@/components/cards/instructor-course.card'
 import { getCourses } from '@/actions/course.action'
 import { auth } from '@clerk/nextjs'

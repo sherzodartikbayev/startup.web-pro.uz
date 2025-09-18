@@ -1,5 +1,5 @@
 import { Separator } from '@/components/ui/separator'
-import Header from '../_components/header'
+import Header from '../../../../components/shared/header'
 import CourseFieldsForm from '@/components/forms/course-fields.form'
 
 function Page() {

@@ -1,6 +1,6 @@
 import { getCourseById } from '@/actions/course.action'
 import { IInstructorMyCourseDetail } from '@/types'
-import Header from '../../_components/header'
+import Header from '../../../../../components/shared/header'
 import Actions from './_components/actions'
 import { Separator } from '@/components/ui/separator'
 import { Images, LayoutPanelLeft, Settings } from 'lucide-react'
