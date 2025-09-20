@@ -55,7 +55,7 @@ function PaymentForm({ onHandler, isProfile }: Props) {
 
 	const onSubmit = async (values: z.infer<typeof addressSchema>) => {
 		setLoading(true)
-		onHandler(values)
+		onHandler(values).finally(() => setLoading(false))
 	}
 
 	return (
