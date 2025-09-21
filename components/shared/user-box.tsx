@@ -50,6 +50,11 @@ function UserBox() {
 				</div>
 
 				<DropdownMenuSeparator />
+				<Link href={'/admin'}>
+					<DropdownMenuItem className='w-full cursor-pointer text-muted-foreground'>
+						Admin
+					</DropdownMenuItem>
+				</Link>
 				<Link href={'/instructor'}>
 					<DropdownMenuItem className='w-full cursor-pointer text-muted-foreground'>
 						Instructor
