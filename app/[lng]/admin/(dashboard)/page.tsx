@@ -1,15 +1,22 @@
 import { getAdminCourses } from '@/actions/course.action'
 import { getAdminReviews } from '@/actions/review.action'
-import { getAdminInstructors, getBalance } from '@/actions/user.action'
+import { getAdminInstructors, getBalance, getRole } from '@/actions/user.action'
 import AdminCourseCard from '@/components/cards/admin-course.card'
 import InstructorReviewCard from '@/components/cards/instructor-review.card'
 import InstructorCard from '@/components/cards/instructor.card'
 import StatisticsCard from '@/components/cards/statistics.card'
 import Header from '@/components/shared/header'
+import { auth } from '@clerk/nextjs'
 import { MessageSquare, MonitorPlay, User } from 'lucide-react'
+import { redirect } from 'next/navigation'
 import { GrMoney } from 'react-icons/gr'
 
 async function Page() {
+	const { userId } = auth()
+	const user = await getRole(userId!)
+
+	if (!user?.isAdmin) return redirect('/')
+
 	const courseData = await getAdminCourses({})
 	const reviewData = await getAdminReviews({})
 	const instructorData = await getAdminInstructors({})

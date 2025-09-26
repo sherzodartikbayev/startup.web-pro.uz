@@ -9,9 +9,14 @@ import { auth } from '@clerk/nextjs'
 import InstructorCourseCard from '@/components/cards/instructor-course.card'
 import { formatAndDivideNumber } from '@/lib/utils'
 import { getReviews } from '@/actions/review.action'
+import { getRole } from '@/actions/user.action'
+import { redirect } from 'next/navigation'
 
 async function Page() {
 	const { userId } = auth()
+	const user = await getRole(userId!)
+	if (user.role !== 'instructor') return redirect('/')
+
 	const result = await getCourses({ clerkId: userId! })
 	const { reviews, totalReviews } = await getReviews({ clerkId: userId! })
 
@@ -52,7 +57,10 @@ async function Page() {
 
 			<div className='mt-4 grid grid-cols-3 gap-4'>
 				{result.courses.map(course => (
-					<InstructorCourseCard key={course._id} course={course} />
+					<InstructorCourseCard
+						key={course._id}
+						course={JSON.parse(JSON.stringify(course))}
+					/>
 				))}
 			</div>
 
