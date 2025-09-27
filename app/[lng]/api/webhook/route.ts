@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { sendNotification } from '@/actions/notification.action'
 import { createUser, updateUser } from '@/actions/user.action'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { headers } from 'next/headers'
@@ -57,6 +58,8 @@ export async function POST(req: Request) {
 			picture: image_url,
 		})
 
+		await sendNotification(id, 'messageWelcome')
+
 		return NextResponse.json({ message: 'OK', user })
 	}
 
@@ -71,6 +74,8 @@ export async function POST(req: Request) {
 				picture: image_url,
 			},
 		})
+
+		await sendNotification(id, 'messageProfileUpdated')
 
 		return NextResponse.json({ message: 'OK', user })
 	}

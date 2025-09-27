@@ -18,7 +18,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 interface Props {
-	onHandler: (values: z.infer<typeof bioSchema>) => Promise<void>
+	onHandler: (values: z.infer<typeof bioSchema>) => Promise<[void, void]>
 }
 
 function ThirdForm({ onHandler }: Props) {

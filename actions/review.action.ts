@@ -54,7 +54,11 @@ export const getReviews = async (params: GetReviewParams) => {
 
 		const reviews = await Review.find({ course: { $in: courses } })
 			.sort({ createdAt: -1 })
-			.populate({ path: 'user', model: User, select: 'fullName picture' })
+			.populate({
+				path: 'user',
+				model: User,
+				select: 'fullName picture clerkId',
+			})
 			.populate({ path: 'course', model: Course, select: 'title' })
 			.skip(skipAmount)
 			.limit(pageSize)
@@ -143,7 +147,11 @@ export const getAdminReviews = async (params: GetPaginationParams) => {
 			.sort({ createdAt: -1 })
 			.skip(skipAmount)
 			.limit(pageSize)
-			.populate({ path: 'user', select: 'fullName picture', model: User })
+			.populate({
+				path: 'user',
+				select: 'fullName picture clerkId',
+				model: User,
+			})
 			.populate({ path: 'course', select: 'title', model: Course })
 
 		const totalReviews = await Review.countDocuments()

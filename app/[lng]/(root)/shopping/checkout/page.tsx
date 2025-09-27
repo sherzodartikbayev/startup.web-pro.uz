@@ -11,8 +11,6 @@ async function Page({ params }: LngParams) {
 
 	const cards = await getCustomerCards(userId!)
 
-	console.log(cards)
-
 	return (
 		<>
 			<TopBar label={'shoppingCart'} extra={t('checkout')} />

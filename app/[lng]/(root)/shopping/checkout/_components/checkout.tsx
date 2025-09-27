@@ -1,6 +1,7 @@
 'use client'
 
 import { purchaseCourse } from '@/actions/course.action'
+import { sendNotification } from '@/actions/notification.action'
 import { payment } from '@/actions/payment.action'
 import { ICard } from '@/app.types'
 import PaymentForm from '@/components/forms/payment.form'
@@ -25,9 +26,8 @@ import { z } from 'zod'
 
 interface Props {
 	cards: ICard[]
-	coupon?: number
+	coupon: number
 }
-
 function Checkout({ cards, coupon }: Props) {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
@@ -75,7 +75,7 @@ function Checkout({ cards, coupon }: Props) {
 		}
 	}
 
-	const onSavedCard = async (paymentMethod: string) => {
+	const onSavedCard = (paymentMethod: string) => {
 		setLoading(true)
 		try {
 			paymentIntent(paymentMethod)
@@ -102,15 +102,17 @@ function Checkout({ cards, coupon }: Props) {
 				setError(`${t('paymentError')} ${error.message}`)
 			} else {
 				for (const course of carts) {
-					purchaseCourse(course._id, userId!)
+					await purchaseCourse(course._id, userId!)
+					await sendNotification(course.instructor.clerkId, 'messageCourseSold')
 				}
+				await sendNotification(userId!, 'messageCoursePurchased')
 				router.push(`/shopping/success?pi=${paymentIntent.id}`)
 				setTimeout(clearCart, 5000)
 			}
 		} catch (error) {
+			setLoading(false)
 			const result = error as Error
 			setError(result.message)
-			setLoading(false)
 		}
 	}
 
@@ -125,21 +127,21 @@ function Checkout({ cards, coupon }: Props) {
 				</Alert>
 			)}
 
-			<RadioGroup value={radioValue} onValueChange={setRadioValue}>
+			<RadioGroup onValueChange={setRadioValue} value={radioValue}>
 				<div className='flex flex-col space-y-3'>
 					{cards.map((card, i) => (
 						<div
 							key={card.id}
 							className='flex items-center justify-between border bg-secondary p-4'
 						>
-							<div className=''>
+							<div>
 								<div className='flex items-center gap-2'>
 									<RadioGroupItem value={`${i}`} id={`${i}`} />
 									<Label
 										htmlFor={`${i}`}
 										className='font-space-grotesk font-bold capitalize'
 									>
-										{card.billing_details.name}
+										{card.billing_details.name} |
 									</Label>
 									<p className='font-space-grotesk text-sm font-bold'>
 										{card.card.brand} {card.card.last4}
@@ -153,10 +155,10 @@ function Checkout({ cards, coupon }: Props) {
 							{radioValue === `${i}` && (
 								<div className='flex justify-end'>
 									<Button
-										type='button'
 										className='group max-md:w-full'
-										disabled={loading}
+										type='button'
 										onClick={() => onSavedCard(card.id)}
+										disabled={loading}
 									>
 										<span>
 											{t('payNow')}{' '}

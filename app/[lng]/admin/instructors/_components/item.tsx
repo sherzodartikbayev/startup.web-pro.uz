@@ -1,5 +1,6 @@
 'use client'
 
+import { sendNotification } from '@/actions/notification.action'
 import { updateUser } from '@/actions/user.action'
 import { IUser } from '@/app.types'
 import { Button } from '@/components/ui/button'
@@ -12,6 +13,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { TableCell, TableRow } from '@/components/ui/table'
+import useTranslate from '@/hooks/use-translate'
 import { MoreHorizontal } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { toast } from 'sonner'
@@ -22,16 +24,25 @@ interface Props {
 
 function Item({ item }: Props) {
 	const pathname = usePathname()
+	const t = useTranslate()
 
 	const onRoleChange = async () => {
 		const msg = item.role === 'instructor' ? 'Disapprove' : 'Approve'
 		const isConfirmed = confirm(`Are you sure you want to ${msg} this user`)
+
 		if (isConfirmed) {
-			const promise = updateUser({
+			const upd = updateUser({
 				clerkId: item.clerkId,
 				updatedData: { role: item.role === 'user' ? 'instructor' : 'user' },
 				path: pathname,
 			})
+
+			const not = sendNotification(
+				item.clerkId,
+				t(`messageRoleChanged ${item.role === 'user' ? 'instructor' : 'user'}`)
+			)
+
+			const promise = Promise.all([upd, not])
 
 			toast.promise(promise, {
 				loading: 'Loading...',
@@ -46,11 +57,18 @@ function Item({ item }: Props) {
 			'Are you sure you want to make this user an admin?'
 		)
 		if (isConfirmed) {
-			const promise = updateUser({
+			const upd = updateUser({
 				clerkId: item.clerkId,
 				updatedData: { isAdmin: true },
 				path: pathname,
 			})
+
+			const not = sendNotification(
+				item.clerkId,
+				item.isAdmin ? 'messageYoureNotAdmin' : 'messageYoureAdmin'
+			)
+
+			const promise = Promise.all([upd, not])
 
 			toast.promise(promise, {
 				loading: 'Loading...',
@@ -65,11 +83,15 @@ function Item({ item }: Props) {
 			'Are you sure you want to delete this instructor?'
 		)
 		if (isConfirmed) {
-			const promise = updateUser({
+			const upd = updateUser({
 				clerkId: item.clerkId,
 				updatedData: { approvedInstructor: false, role: 'user' },
 				path: pathname,
 			})
+
+			const not = sendNotification(item.clerkId, 'messageDeletedInstructor')
+
+			const promise = Promise.all([upd, not])
 
 			toast.promise(promise, {
 				loading: 'Loading...',
@@ -118,7 +140,9 @@ function Item({ item }: Props) {
 						<DropdownMenuItem onClick={onRoleChange}>
 							{item.role === 'instructor' ? 'Disapprove' : 'Approve'}
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={onAdmin}>Admin</DropdownMenuItem>
+						<DropdownMenuItem onClick={onAdmin}>
+							{item.isAdmin ? 'Remove admin' : 'Make admin'}
+						</DropdownMenuItem>
 						<DropdownMenuItem onClick={onDelete}>Delete</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
