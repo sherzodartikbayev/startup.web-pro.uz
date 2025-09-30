@@ -370,13 +370,13 @@ export const addArchiveCourse = async (courseId: string, clerkId: string) => {
 export const addWishlistCourse = async (courseId: string, clerkId: string) => {
 	try {
 		await connectToDatabase()
-		const isWishlist = await User.findOne({
+		const isWhishlist = await User.findOne({
 			clerkId,
 			wishlistCourses: courseId,
 		})
 
-		if (isWishlist) {
-			throw new Error('Course already added to wishlist')
+		if (isWhishlist) {
+			throw new Error('Course already added to archive')
 		}
 
 		const user = await User.findOne({ clerkId })
@@ -385,7 +385,7 @@ export const addWishlistCourse = async (courseId: string, clerkId: string) => {
 			$push: { wishlistCourses: courseId },
 		})
 	} catch (error) {
-		throw new Error('Something went wrong while adding favorite course!')
+		throw new Error('Something went wrong while adding whishlist!')
 	}
 }
 
@@ -466,6 +466,7 @@ export const getWishlist = async (clerkId: string) => {
 	try {
 		await connectToDatabase()
 		const user = await User.findOne({ clerkId }).select('wishlistCourses')
+
 		const wishlistCourses = await Course.find({
 			_id: { $in: user.wishlistCourses },
 		})
@@ -478,7 +479,7 @@ export const getWishlist = async (clerkId: string) => {
 
 		return wishlistCourses
 	} catch (error) {
-		throw new Error('Something went wrong while getting wishlist!')
+		throw new Error('Something went wrong while getting whishlist!')
 	}
 }
 

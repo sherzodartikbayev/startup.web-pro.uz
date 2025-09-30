@@ -1,8 +1,8 @@
 'use client'
 
+import CustomImage from '@/components/shared/custom-image'
 import { learningJourney } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
-import Image from 'next/image'
 
 function LearningJourney() {
 	const t = useTranslate()
@@ -20,13 +20,17 @@ function LearningJourney() {
 				{learningJourney.map(item => (
 					<div
 						key={item.title}
-						className='flex flex-col items-center justify-center rounded-md bg-primary p-6 text-center'
+						className='flex flex-col items-center justify-center rounded-md bg-secondary p-6 text-center'
 					>
-						<Image src={item.image} alt={item.title} width={70} height={70} />
-						<h2 className='mt-2 line-clamp-1 font-space-grotesk text-lg font-bold text-secondary'>
+						<div className='relative size-[70px]'>
+							<CustomImage src={item.image} alt={item.title} />
+						</div>
+						<h2 className='mt-2 line-clamp-1 font-space-grotesk text-lg font-bold'>
 							{t(item.title)}
 						</h2>
-						<p className='line-clamp-2 text-secondary'>{t(item.excerpt)}</p>
+						<p className='line-clamp-2 text-sm text-white/80'>
+							{t(item.excerpt)}
+						</p>
 					</div>
 				))}
 			</div>

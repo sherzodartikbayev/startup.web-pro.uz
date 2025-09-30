@@ -4,6 +4,12 @@ import { LngParams } from '@/types'
 import CheckoutElement from './_components/checkout-element'
 import { getCustomerCards } from '@/actions/customer.action'
 import { auth } from '@clerk/nextjs'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Praktikum | Checkout',
+	description: 'Kurslarni sotib olish sahifasi',
+}
 
 async function Page({ params }: LngParams) {
 	const { userId } = auth()

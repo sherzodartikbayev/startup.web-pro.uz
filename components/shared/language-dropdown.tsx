@@ -32,6 +32,7 @@ function LanguageDropdown({ isMobile = false }: Props) {
 					className={cn(
 						isMobile && 'w-full bg-primary hover:bg-primary/80 h-12'
 					)}
+					aria-label='language-dropdown'
 				>
 					<Languages />
 					{isMobile && (

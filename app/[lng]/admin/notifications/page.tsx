@@ -11,7 +11,6 @@ async function Page({ params: { lng } }: LngParams) {
 	const { t } = await translation(lng)
 	const { userId } = auth()
 	const notifications = await getNotifications(userId!)
-	console.log(notifications)
 
 	return (
 		<>

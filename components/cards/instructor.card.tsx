@@ -1,6 +1,6 @@
 import { IUser } from '@/app.types'
-import Image from 'next/image'
 import Link from 'next/link'
+import CustomImage from '../shared/custom-image'
 
 interface Props {
 	instructor: IUser
@@ -11,17 +11,18 @@ function InstructorCard({ instructor }: Props) {
 		<Link href={`instructors/${instructor.clerkId}`}>
 			<div className='flex flex-col space-y-1'>
 				<div className='relative h-72 w-full'>
-					<Image
+					<CustomImage
 						src={instructor.picture}
 						alt={instructor.fullName}
-						fill
-						className='rounded-md object-cover'
+						className='rounded-md'
 					/>
 				</div>
 				<h1 className='font-space-grotesk text-2xl font-bold'>
 					{instructor.fullName}
 				</h1>
-				<h3 className='font-medium text-muted-foreground'>{instructor.job}</h3>
+				<div className='font-medium text-muted-foreground'>
+					{instructor.job}
+				</div>
 			</div>
 		</Link>
 	)

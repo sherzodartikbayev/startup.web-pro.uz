@@ -26,9 +26,26 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-	title: 'Startup Praktikum - Next.js',
-	description: "Startup Praktikum's Next.js project",
+	metadataBase: new URL('https://startup.web-pro.uz'),
+	title: 'Sammi praktikum | Dasturlash kurslari',
+	description:
+		"Sammi Praktikum Next.js dasturlash kurslari, amaliyotlar, startup loyihalar va asosiysi sifatli ta'limdir.",
+	authors: [{ name: 'Sherzod Artikbayev', url: 'https://startup.web-pro.uz' }],
 	icons: { icon: '/logo.svg' },
+	openGraph: {
+		title: 'Sammi praktikum | Dasturlash kurslari',
+		description:
+			"Sammi Praktikum Next.js dasturlash kurslari, amaliyotlar, startup loyihalar va asosiysi sifatli ta'limdir.",
+		type: 'website',
+		url: 'https://startup.web-pro.uz',
+		locale: 'uz_UZ',
+		images: 'https://media.graphassets.com/f4jkBWQ6SVaKwySKRNQT',
+		countryName: 'Uzbekistan',
+		siteName: 'Sammi',
+		emails: 'info@web-pro.uz',
+	},
+	keywords:
+		"Praktikum, Praktikum sammi, NextJS, NextJS to'liq kurs, NextJS kurs, NextJS dasturlash, Startup, Startup loyiha, Startup sammi, Sammi, Sammi praktikum, Sammi dasturlash, Sammi startup, Sammi kurs, Sammi kurslari, Sammi dasturlash kurslari, Sammi startup kurslari, Sammi startup loyihalari, Sammi startup loyiha, Sammi startup loyihasi, Sammi startup loyihasi dasturlash",
 }
 
 interface Props extends ChildProps {

@@ -5,12 +5,19 @@ import { Button } from '@/components/ui/button'
 import { translation } from '@/i18n/server'
 import { format } from 'date-fns'
 import { GaugeCircle } from 'lucide-react'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+	title: 'Praktikum | Muvaqqiyatli toʻlov',
+	description: 'Sotib olish muvaffaqiyatli amalga oshirildi!',
+}
 
 interface Props extends SearchParamsProps {
 	params: { lng: string }
 }
+
 async function Page({ params, searchParams }: Props) {
 	const payment = await retrievePayment(searchParams.pi!)
 	const { t } = await translation(params.lng)

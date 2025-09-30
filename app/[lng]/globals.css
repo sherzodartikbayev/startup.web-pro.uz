@@ -82,7 +82,6 @@
 .btn-search {
 	position: absolute;
 	right: 0px;
-	color: #ffffff;
 	pointer-events: painted;
 }
 .btn-search:focus ~ .input-search {

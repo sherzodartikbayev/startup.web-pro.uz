@@ -6,6 +6,24 @@ import Image from 'next/image'
 import ShareBtns from './_components/share-btns'
 import parse from 'html-react-parser'
 import { Separator } from '@/components/ui/separator'
+import { Metadata, ResolvingMetadata } from 'next'
+
+export async function generateMetadata(
+	{ params }: { params: { slug: string } },
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const blog = await getDetailedBlog(params.slug)
+
+	return {
+		title: blog.title,
+		description: blog.description,
+		openGraph: {
+			title: blog.title,
+			description: blog.description,
+			images: blog.image.url,
+		},
+	}
+}
 
 async function Page({ params }: { params: { slug: string } }) {
 	const blog = await getDetailedBlog(params.slug)

@@ -3,6 +3,13 @@ import { SearchParamsProps } from '@/app.types'
 import InstructorCard from '@/components/cards/instructor.card'
 import Pagination from '@/components/shared/pagination'
 import TopBar from '@/components/shared/top-bar'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Praktikum | Barcha muallimlar',
+	description:
+		'Platformamizda mavjud boʻlgan barcha muallimlar roʻyxati. Oʻzingizga mos muallimni toping va oʻrganishni boshlang!',
+}
 
 async function Page({ searchParams }: SearchParamsProps) {
 	const page = searchParams.page ? +searchParams.page : 1

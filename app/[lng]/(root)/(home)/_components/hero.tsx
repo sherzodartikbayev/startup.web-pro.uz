@@ -43,7 +43,8 @@ function Hero() {
 					alt='hero'
 					width={520}
 					height={520}
-					className='self-end object-cover'
+					sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+					className='h-auto w-full self-end object-cover'
 				/>
 			</div>
 
