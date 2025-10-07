@@ -64,9 +64,9 @@ function Forms({ course, onToggle }: FormsProps) {
 		setIsLoading(true)
 
 		const promise = storage
-			.createFile(bucketId, ID.unique(), file)
+			.createFile(bucketId!, ID.unique(), file)
 			.then(res => {
-				const url = storage.getFileView(bucketId, res.$id)
+				const url = storage.getFileView(bucketId!, res.$id)
 				return updateCourse(course._id, { previewImage: url }, pathname)
 			})
 			.then(() => onToggle())
